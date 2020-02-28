@@ -1,36 +1,30 @@
 import mongoose, { Document } from 'mongoose'
+import { Book } from 'library'
 
-export type BookDocument = Document & {
-    title: string,
-    description: string,
-    publisher: string,
-    authors: string[],
-    isbn: number,
-    status: {
-        available: string,
-        borrowed: string,
-    }
-    publishedDate: Date,
-}
+export type BookDocument = Document & Book
 
 const bookSchema = new mongoose.Schema({
-    title: {
-      type: String,
-      index: true,
+  title: {
+    type: String,
+    index: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  publisher: String,
+  isbn: Number,
+  status: {
+    available: String,
+    borrowed: String,
+  },
+  publishedDate: Date,
+  authors: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Author',
     },
-    description: {
-      type: String,
-      required: true,
-      min: 1900,
-    },
-    publisher: String,
-    authors: [String],
-    isbn: Number,
-    status: {
-        available: String,
-        borrowed: String,
-    },
-    publishedDate: Date
-  })
-  
-  export default mongoose.model<BookDocument>('Book', bookSchema)
+  ],
+})
+
+export default mongoose.model<BookDocument>('Book', bookSchema)
