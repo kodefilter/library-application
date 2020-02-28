@@ -1,4 +1,4 @@
-import Book, { BookDocument } from "../models/Book"
+import Book, { BookDocument } from '../models/Book'
 
 function create(book: BookDocument): Promise<BookDocument> {
   return book.save()
