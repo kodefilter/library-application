@@ -12,7 +12,7 @@ import bluebird from 'bluebird'
 
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets'
 
-import movieRouter from './routers/movie'
+import bookRouter from './routers/books'
 
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
@@ -47,8 +47,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(lusca.xframe('SAMEORIGIN'))
 app.use(lusca.xssProtection(true))
 
-// Use movie router
-app.use('/api/v1/movies', movieRouter)
+// Use movie and book router
+app.use('/api/v1/books', bookRouter)
 
 // Custom API error handler
 app.use(apiErrorHandler)
