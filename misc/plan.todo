@@ -1,0 +1,57 @@
+Design & document the APIs for a library management system:
+
+Library has books, users, authors:
+
+Total:
+  Books:
+    Have different attributes such as:
+    ✔ ISBN @done(20-02-28 16:53)
+    ✔ title @done(20-02-28 15:33)
+    ☐ description
+    ☐ publisher
+    ☐ authors
+    ☐ status (available, borrowed) _make isBorrowed: boolean_
+    ☐ borrower ID
+    ☐ published date
+    ☐ borrow date
+    ☐ return date
+  Authors:
+    Attributes (I made these up):
+      ✔ unique ID @done(20-02-28 15:37) _I'll just use object ID_
+      ✔ first name @done(20-02-28 15:37)
+      ✔ last name @done(20-02-28 15:37)
+  Users:
+    Attributes such as:
+      ✔ unique ID @done(20-02-28 16:21)
+      ✔ first name @done(20-02-28 16:21)
+      ✔ last name @done(20-02-28 16:21)
+      ✔ email @done(20-02-28 16:21)
+      ✔ isAdmin @done(20-02-28 16:21)
+      ✔ password (save as hashed string) @done(20-02-28 16:28)
+  Admin:
+    ✔ Special users with more privileges @done(20-02-28 16:22)
+
+  Use cases:
+    Books:
+      ☐ Get list of all books with/without pagination
+      ☐ Get list of books, filtering (search) by:
+        ☐ title
+        ☐ author
+        ☐ status
+        ☐ categories
+      ☐ Get a book by ISBN
+      ☐ Lend a book to a user
+      ☐ Return a borrowed book back to library
+    Admin (currently mixed in respective authors, books routes):
+      ☐ Add a new book
+      ☐ Update info of a book
+      ✔ Remove a book @done(20-02-28 16:43)
+      ✔ Add a new author @done(20-02-28 16:43)
+      ✔ Update info of an author @done(20-02-28 16:43)
+      ✔ Remove an author @done(20-02-28 16:43)
+    Users:
+      ☐ Sign up a new user (username, password, first name, last name, email)
+      ☐ Sign in user with username/password
+      ☐ Update user profile (first name, last name, email)
+      ☐ Forget password request
+      ☐ Change password (username, old password, new password)
