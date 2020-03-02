@@ -8,6 +8,7 @@ import {
   BadRequestError,
   InternalServerError,
 } from '../helpers/apiError'
+import Book from '../models/Book'
 
 // POST /authors
 export const createAuthor = async (
@@ -16,15 +17,20 @@ export const createAuthor = async (
   next: NextFunction
 ) => {
   try {
-    const { firstName, lastName } = req.body
+    const body = req.body
+
+    const book = await Book.findById(body.bookId)
 
     const author = new Author({
-      firstName,
-      lastName,
+      firstName: body.firstName,
+      lastName: body.lastName,
+      books: [book?._id],
     })
 
-    await AuthorService.create(author)
-    res.json(author)
+    const savedAuthor = await AuthorService.create(author)
+    book?.authors.push(savedAuthor._id)
+    await book?.save()
+    res.json(savedAuthor)
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
