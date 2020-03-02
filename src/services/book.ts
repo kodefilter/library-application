@@ -17,6 +17,7 @@ function findById(bookId: string): Promise<BookDocument> {
 
 function findAll(): Promise<BookDocument[]> {
   return Book.find()
+    .populate('authors', { firstName: 1, lastName: 1 })
     .sort({ title: 1, publishedDate: -1 })
     .exec() // Return a Promise
 }
