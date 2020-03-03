@@ -14,5 +14,11 @@ export type Book = {
 export type Author = {
   firstName: string
   lastName: string
-  books: Book[] // array if book Object ids
+  books: Book[] // array of book Object ids
+}
+
+export type User = {
+  firstName: string
+  lastName: string
+  email: string
 }
