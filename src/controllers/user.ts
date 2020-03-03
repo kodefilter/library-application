@@ -10,7 +10,7 @@ import {
 } from '../helpers/apiError'
 
 // POST /users
-export const createAuthor = async (
+export const createUser = async (
   req: Request,
   res: Response,
   next: NextFunction
