@@ -6,8 +6,13 @@
     "sourceType": "module"
   },
   "rules": {
+<<<<<<< HEAD
     "semi": "off",
     "quotes": [2, "single", "avoid-escape"],
+=======
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+>>>>>>> 44ef0006b980c71d56aaeeecc38c10ae544e2e1b
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": 1,
     "@typescript-eslint/member-delimiter-style": "off",
