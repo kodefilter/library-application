@@ -1,5 +1,10 @@
 @baseurl = http://localhost:3000/api/v1
 
 ### Get Books
-# @name books
 GET {{baseurl}}/books
+
+### Get Books with pagination
+GET {{baseurl}}/books?page=0&limit=3
+
+### Get Authors
+GET {{baseurl}}/authors

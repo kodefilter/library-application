@@ -14,10 +14,7 @@ const bookSchema = new mongoose.Schema({
   },
   publisher: String,
   isbn: Number,
-  status: {
-    available: String,
-    borrowed: String,
-  },
+  isAvailable : Boolean || true,
   publishedDate: Date,
   authors: [
     {

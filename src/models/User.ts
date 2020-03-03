@@ -12,6 +12,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  borrowedBooks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Book',
+    },
+  ],
   email: String,
 })
 

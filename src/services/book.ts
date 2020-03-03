@@ -1,5 +1,6 @@
 import Book, { BookDocument } from '../models/Book'
 import { PageOptions } from 'library'
+import { stringify } from 'querystring'
 
 
 
@@ -26,6 +27,27 @@ function findAll(pageOptions :PageOptions): Promise<BookDocument[]> {
     .limit(pageOptions.limit) // limiting
     .exec() // Return a Promise
 }
+
+function borrow(
+  bookId :string,
+  borrow: Partial<BookDocument>,
+): Promise<BookDocument | null> {
+  return Book.findById(bookId).exec()
+  .then(book => {
+    if (!book) {
+      throw new Error(`Book ${bookId} not found`)
+    }
+
+    if (borrow.status) {
+      book.status = borrow.status
+    }
+    
+    // Add more fields here if needed
+    return book.save()
+  })
+
+}
+
 
 function update(
   bookId: string,
@@ -62,5 +84,6 @@ export default {
   findById,
   findAll,
   update,
+  borrow,
   deleteBook,
 }

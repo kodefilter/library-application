@@ -8,6 +8,7 @@ import {
   InternalServerError,
 } from '../helpers/apiError'
 import Author from '../models/Author'
+import User from '../models/User'
 
 // POST /books
 export const createBook = async (
@@ -42,6 +43,28 @@ export const createBook = async (
       next(new InternalServerError('Internal Server Error', error))
     }
   }
+}
+
+export const borrowBook = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+)=>{
+  try {
+    const borrow = req.body
+    const bookId = req.params.bookId
+
+
+    const user = await User.findById(req.body.userId)
+
+    const borrowedBook = await BookService.borrow(bookId, borrow)
+    user?.borrowedBooks.push(borrowedBook?._id)
+    await user?.save()
+    res.json(borrowBook)
+  }catch (error){
+    next(new NotFoundError('Book not found', error))
+  }
+
 }
 
 // PUT /books/:bookId
