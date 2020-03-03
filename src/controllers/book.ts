@@ -87,14 +87,22 @@ export const findById = async (
   }
 }
 
-// GET /movies
+// GET /books
 export const findAll = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+
+  // pagination page = 0 and limit = 10
+  const pageOptions = {
+    page: parseInt(req.query.page, 10) || 0,
+    limit: parseInt(req.query.limit, 10) || 10
+  }
+
+
   try {
-    res.json(await BookService.findAll())
+    res.json(await BookService.findAll(pageOptions))
   } catch (error) {
     next(new NotFoundError('Books not found', error))
   }

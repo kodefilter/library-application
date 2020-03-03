@@ -22,3 +22,8 @@ export type User = {
   lastName: string
   email: string
 }
+
+export type PageOptions = {
+  page: number
+  limit: number
+}

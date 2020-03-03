@@ -49,7 +49,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(lusca.xframe('SAMEORIGIN'))
 app.use(lusca.xssProtection(true))
 
-// Use book and author router
+// Use book, author, user router
 app.use('/api/v1/books', bookRouter)
 app.use('/api/v1/authors', authorRouter)
 app.use('/api/v1/users', userRouter)
