@@ -54,17 +54,16 @@ export const borrowBook = async (
     const borrow = req.body
     const bookId = req.params.bookId
 
-
     const user = await User.findById(req.body.userId)
 
     const borrowedBook = await BookService.borrow(bookId, borrow)
-    user?.borrowedBooks.push(borrowedBook?._id)
+    user?.cart.push(borrowedBook?._id)
     await user?.save()
     res.json(borrowBook)
+    
   }catch (error){
     next(new NotFoundError('Book not found', error))
   }
-
 }
 
 // PUT /books/:bookId

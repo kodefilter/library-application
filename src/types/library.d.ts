@@ -21,7 +21,7 @@ export type User = {
   firstName: string
   lastName: string
   email: string
-  borrowedBooks: Book[]
+  cart: Book[]
 }
 
 export type PageOptions = {

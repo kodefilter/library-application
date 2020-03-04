@@ -6,12 +6,14 @@ import {
   deleteBook,
   findAll,
   updateBook,
+  borrowBook,
 } from '../controllers/book'
 
 const router = express.Router()
 
 // Every path we define here will get /api/v1/books prefix
 router.get('/', findAll)
+router.put('/:bookId',borrowBook)
 router.get('/:bookId', findById)
 router.put('/:bookId', updateBook)
 router.delete('/:bookId', deleteBook)
