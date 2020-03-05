@@ -7,10 +7,10 @@ Total:
     Have different attributes such as:
     ✔ ISBN @done(20-02-28 16:53)
     ✔ title @done(20-02-28 15:33)
-    ☐ description
-    ☐ publisher
-    ☐ authors
-    ☐ status (available, borrowed) _make isBorrowed: boolean_
+    ✔ description @done(20-03-04 23:30)
+    ✔ publisher @done(20-03-04 23:31)
+    ✔ authors @done(20-03-04 23:30)
+    ✔ status (available, borrowed) _make isAvailable: boolean_ @done(20-03-04 23:31)
     ☐ borrower ID
     ☐ published date
     ☐ borrow date

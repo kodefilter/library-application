@@ -7,7 +7,7 @@ import {
   BadRequestError,
   InternalServerError,
 } from '../helpers/apiError'
-import Author from '../models/Author'
+import Author, { AuthorDocument } from '../models/Author'
 import User from '../models/User'
 
 // POST /books
@@ -17,10 +17,8 @@ export const createBook = async (
   next: NextFunction
 ) => {
   try {
-    const body = req.body
 
-    // send authorId in the request and get it here to find the author
-    const author = await Author.findById(body.authorId)
+    const body = req.body
 
     const book = new Book({
       title: body.title,
@@ -29,13 +27,21 @@ export const createBook = async (
       isbn: body.isbn,
       status: body.status,
       publishedDate: body.publishedDate,
-      authors: [author?._id],
+      authors: body.authors,
     })
 
     const savedBook = await BookService.create(book)
-    author?.books.push(savedBook._id)
-    await author?.save()
+
+    // find the authors of the book and save the book id to their books array
+    body.authors.map(async (author :AuthorDocument)=>{
+      const foundAuthor = await Author.findById(author._id)
+      console.log('found author inside controller',foundAuthor)
+      foundAuthor?.books.push(savedBook._id)
+      await foundAuthor?.save()
+    })
+
     res.json(savedBook)
+
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -53,6 +59,8 @@ export const borrowBook = async (
   try {
     const borrow = req.body
     const bookId = req.params.bookId
+    // make put request to /books/borrow for this
+    /* this is todo for thursday 05.03.2020*/
 
     const user = await User.findById(req.body.userId)
 

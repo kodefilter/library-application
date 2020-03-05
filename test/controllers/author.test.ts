@@ -1,6 +1,6 @@
 import request from 'supertest'
 
-import Author, { AuthorDocument } from '../../src/models/Author'
+import {AuthorDocument}  from '../../src/models/Author'
 import app from '../../src/app'
 import * as dbHelper from '../db-helper'
 
@@ -40,6 +40,7 @@ describe('author controller', () => {
     expect(res.status).toBe(200)
     expect(res.body).toHaveProperty('_id')
     expect(res.body.firstName).toBe('whatever')
+    expect(res.body.lastName).toBe('whatever')
   })
 
   it('should not create an author with wrong data', async () => {
@@ -48,7 +49,7 @@ describe('author controller', () => {
       .send({
         firstName: 'whatever',
         publishedYear: 2019,
-        lastName: 'whatever'
+        //lastName: 'whatever'
         
       })
     expect(res.status).toBe(400)
@@ -95,7 +96,7 @@ describe('author controller', () => {
 
     const authorId = res.body._id
     const update = {
-      firstName: 'updatedwhatever', 
+      firstName: 'updatewhatever', 
     }
 
     res = await request(app)

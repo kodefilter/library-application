@@ -7,7 +7,7 @@ const nonExistingAuthorId = '5e57b77b5744fa0b461c7906'
 async function createAuthor() {
   const author = new Author({
     firstName: 'Ashlee',
-    LastName: 'Vance',
+    lastName: 'Vance',
     
   })
   return await AuthorService.create(author)
@@ -58,7 +58,7 @@ describe('author service', () => {
     const updated = await AuthorService.update(author._id, update)
     expect(updated).toHaveProperty('_id', author._id)
     expect(updated).toHaveProperty('firstName', 'Ashlee')
-    expect(updated).toHaveProperty('latName', 'Vance')
+    expect(updated).toHaveProperty('lastName', 'Vance')
   })
 
   it('should not update a non-existing author', async () => {
@@ -77,7 +77,7 @@ describe('author service', () => {
     const author = await createAuthor()
     await AuthorService.deleteAuthor(author._id)
     return AuthorService.findById(author._id).catch(e => {
-      expect(e.message).toBe(`Movie ${author._id} not found`)
+      expect(e.message).toBe(`Author ${author._id} not found`)
     })
   })
 })

@@ -10,11 +10,11 @@ import {
 
 const router = express.Router()
 
-// Every path we define here will get /api/v1/books prefix
+// Every path we define here will get /api/v1/authors prefix
 router.get('/', findAll)
-router.get('/:bookId', findById)
-router.put('/:bookId', updateAuthor)
-router.delete('/:bookId', deleteAuthor)
+router.get('/:authorId', findById)
+router.put('/:authorId', updateAuthor)
+router.delete('/:authorId', deleteAuthor)
 router.post('/', createAuthor)
 
 export default router

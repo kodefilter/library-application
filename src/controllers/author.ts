@@ -92,6 +92,6 @@ export const findAll = async (
   try {
     res.json(await AuthorService.findAll())
   } catch (error) {
-    next(new NotFoundError('Books not found', error))
+    next(new NotFoundError('Authors not found', error))
   }
 }

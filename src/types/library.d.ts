@@ -3,10 +3,7 @@ export type Book = {
   description: string
   publisher: string
   isbn: number
-  status: {
-    available: string
-    borrowed: string
-  }
+  isAvailable: boolean
   publishedDate: Date
   authors: Author[] //array of author Object ids
 }

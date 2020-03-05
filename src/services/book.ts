@@ -1,6 +1,6 @@
 import Book, { BookDocument } from '../models/Book'
 import { PageOptions } from 'library'
-import { stringify } from 'querystring'
+import Author, { AuthorDocument } from '../models/Author'
 
 
 
@@ -22,7 +22,7 @@ function findById(bookId: string): Promise<BookDocument> {
 function findAll(pageOptions :PageOptions): Promise<BookDocument[]> {
   return Book.find()
     .populate('authors', { firstName: 1, lastName: 1 })
-    .sort({ title: 1, publishedDate: -1 })
+    .sort({ title: 1})
     .skip(pageOptions.page * pageOptions.limit) //for pagination
     .limit(pageOptions.limit) // limiting
     .exec() // Return a Promise
@@ -37,11 +37,9 @@ function borrow(
     if (!book) {
       throw new Error(`Book ${bookId} not found`)
     }
+    // make book unavailable once it is borrowed
+    book.isAvailable = false
 
-    if (borrow.status) {
-      book.status = borrow.status
-    }
-    
     // Add more fields here if needed
     return book.save()
   })
