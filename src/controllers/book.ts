@@ -51,6 +51,7 @@ export const createBook = async (
   }
 }
 
+//PUT /books/borrow
 export const borrowBook = async (
   req: Request,
   res: Response,
@@ -64,14 +65,36 @@ export const borrowBook = async (
 
     const user = await User.findById(req.body.userId)
 
-    const borrowedBook = await BookService.borrow(bookId, borrow)
+    const borrowedBook = await BookService.borrow(bookId)
     user?.cart.push(borrowedBook?._id)
     await user?.save()
-    res.json(borrowBook)
+    res.json(borrowedBook)
     
   }catch (error){
     next(new NotFoundError('Book not found', error))
   }
+}
+// PUT /books/unborrow
+export const unborrowBook = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const unborrow = req.body
+    const bookId = req.params.bookId
+
+    const user = await User.findById(req.body.userId)
+
+    const unborrowedBook = await BookService.unborrow(bookId)
+    user?.cart.pull(unborrowedBook?._id)
+    await user?.save()
+    res.json(unborrowedBook)
+
+  }catch (error){
+    next(new NotFoundError('Book not found', error))
+  }
+
 }
 
 // PUT /books/:bookId
@@ -127,7 +150,7 @@ export const findAll = async (
   // pagination page = 0 and limit = 10
   const pageOptions = {
     page: parseInt(req.query.page, 10) || 0,
-    limit: parseInt(req.query.limit, 10) || 10
+    limit: parseInt(req.query.limit, 10) || 100
   }
 
 

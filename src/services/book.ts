@@ -30,7 +30,6 @@ function findAll(pageOptions :PageOptions): Promise<BookDocument[]> {
 
 function borrow(
   bookId :string,
-  borrow: Partial<BookDocument>,
 ): Promise<BookDocument | null> {
   return Book.findById(bookId).exec()
   .then(book => {
@@ -39,6 +38,23 @@ function borrow(
     }
     // make book unavailable once it is borrowed
     book.isAvailable = false
+
+    // Add more fields here if needed
+    return book.save()
+  })
+
+}
+
+function unborrow(
+  bookId :string,
+): Promise<BookDocument | null> {
+  return Book.findById(bookId).exec()
+  .then(book => {
+    if (!book) {
+      throw new Error(`Book ${bookId} not found`)
+    }
+    // make book available once it is unborrowed
+    book.isAvailable = true
 
     // Add more fields here if needed
     return book.save()
@@ -83,5 +99,6 @@ export default {
   findAll,
   update,
   borrow,
+  unborrow,
   deleteBook,
 }
