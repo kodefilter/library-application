@@ -17,6 +17,9 @@ import bookRouter from './routers/books'
 import authorRouter from './routers/authors'
 import userRouter from './routers/users'
 
+// for authentication related routes
+import authRoutesRouter from './routers/authRoutes'
+
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
 
@@ -55,6 +58,8 @@ app.use(cors())
 app.use('/api/v1/books', bookRouter)
 app.use('/api/v1/authors', authorRouter)
 app.use('/api/v1/users', userRouter)
+
+app.use('/auth', authRoutesRouter)
 
 
 // Custom API error handler
