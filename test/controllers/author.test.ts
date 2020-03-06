@@ -10,7 +10,6 @@ async function createAuthor(override?: Partial<AuthorDocument>) {
   let author = {
     firstName: 'whatever',
     lastName: 'whatever',
-    books: [{title: 'Animation'}],
   }
 
   if (override) {
@@ -20,7 +19,7 @@ async function createAuthor(override?: Partial<AuthorDocument>) {
   return await request(app)
     .post('/api/v1/authors')
     .send(author)
-}
+  }
 
 describe('author controller', () => {
   beforeEach(async () => {

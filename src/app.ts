@@ -1,5 +1,6 @@
 import express from 'express'
 import compression from 'compression'
+import cors from 'cors'
 import session from 'express-session'
 import bodyParser from 'body-parser'
 import lusca from 'lusca'
@@ -40,7 +41,7 @@ mongoose
   })
 
 // Express configuration
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 3001)
 
 // Use common 3rd-party middlewares
 app.use(compression())
@@ -48,6 +49,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(lusca.xframe('SAMEORIGIN'))
 app.use(lusca.xssProtection(true))
+app.use(cors())
 
 // Use book, author, user router
 app.use('/api/v1/books', bookRouter)

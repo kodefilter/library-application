@@ -24,12 +24,9 @@ export const createAuthor = async (
     const author = new Author({
       firstName: body.firstName,
       lastName: body.lastName,
-      books: [book?._id],
     })
 
     const savedAuthor = await AuthorService.create(author)
-    book?.authors.push(savedAuthor._id)
-    await book?.save()
     res.json(savedAuthor)
   } catch (error) {
     if (error.name === 'ValidationError') {
