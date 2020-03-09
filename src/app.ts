@@ -8,7 +8,6 @@ import mongo from 'connect-mongo'
 import flash from 'express-flash'
 import path from 'path'
 import mongoose from 'mongoose'
-import passport from 'passport'
 import bluebird from 'bluebird'
 
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets'
@@ -22,6 +21,9 @@ import authRoutesRouter from './routers/authRoutes'
 
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
+
+// this is very important to put here in app.ts
+const passport = require('./config/passport')
 
 const app = express()
 const mongoUrl = MONGODB_URI

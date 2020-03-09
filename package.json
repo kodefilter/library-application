@@ -27,6 +27,7 @@
   "dependencies": {
     "@types/cors": "^2.8.6",
     "@types/jsonwebtoken": "^8.3.7",
+    "@types/passport-google-oauth20": "^2.0.3",
     "async": "^3.2.0",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.7.2",
@@ -51,6 +52,7 @@
     "nodemailer": "^6.4.3",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "pug": "^2.0.4",
     "request": "^2.88.2",

@@ -87,7 +87,7 @@ export const unborrowBook = async (
     const user = await User.findById(req.body.userId)
 
     const unborrowedBook = await BookService.unborrow(bookId)
-    user?.cart.filter(book => book !== unborrowedBook)
+    user?.cart.pull(unborrowedBook) // need to make it work with filter
     await user?.save()
     res.json(unborrowedBook)
 
