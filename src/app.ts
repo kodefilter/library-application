@@ -9,6 +9,7 @@ import flash from 'express-flash'
 import path from 'path'
 import mongoose from 'mongoose'
 import bluebird from 'bluebird'
+import passport from 'passport'
 
 import { MONGODB_URI, SESSION_SECRET } from './util/secrets'
 
@@ -23,7 +24,7 @@ import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
 
 // this is very important to put here in app.ts
-const passport = require('./config/passport')
+const passportConfig = require('./config/passport')
 
 const app = express()
 const mongoUrl = MONGODB_URI
@@ -55,6 +56,17 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(lusca.xframe('SAMEORIGIN'))
 app.use(lusca.xssProtection(true))
 app.use(cors())
+
+app.use(session({
+  secret: process.env['SESSION_SECRET'] as string,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 600000}
+}))
+
+// initialize passport and session of it
+app.use(passport.initialize())
+app.use(passport.session())
 
 // Use book, author, user router
 app.use('/api/v1/books', bookRouter)

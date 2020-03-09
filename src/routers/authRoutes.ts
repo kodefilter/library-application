@@ -21,9 +21,12 @@ router.get('/google', passport.authenticate('google',{
 }))
 
 
-router.get('/google/callback', function(req, res) { 
+router.get('/google/callback', passport.authenticate('google', {
+    successRedirect: '/api/v1/users',
+    failureRedirect: '/api/v1/books'
+}),function(req, res) { 
     //successful authentication, send this message
-    res.send('Here in my garage')
+    res.redirect('/api/v1/users')
 })
 
 export default router
