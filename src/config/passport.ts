@@ -6,14 +6,15 @@ import User from '../models/User'
 
 const GoogleStrategy = passportGoogle.Strategy
 
-passport.serializeUser((user: any, done) => {
-    done(null,user.id)
-})
+passport.serializeUser((user: any, done) => done(null,user.id))
 
-passport.deserializeUser((id, done) => {
-    User.findById(id).then((user) => {
-        done(null,user)
-    })
+passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await User.findById(id)
+      return done(null, user)
+    } catch (err) {
+      return done(err, null)
+    }
 })
 
 passport.use(new GoogleStrategy({
@@ -25,15 +26,13 @@ passport.use(new GoogleStrategy({
 
     User.findOne({googleId: profile.id}).then((currentUser :any)=>{
         if(currentUser){
-            done(undefined, currentUser)
+            return done(undefined, currentUser)
         } else {
             new User({
                 firstName : profile.name?.givenName,
                 lastName : profile.name?.familyName,
                 googleId : profile.id,
-            }).save().then((newUser) => {
-                done(undefined, newUser)
-            })
+            }).save().then(newUser => done(undefined, newUser))
         }
     })
 

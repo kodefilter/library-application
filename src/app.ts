@@ -17,6 +17,9 @@ import bookRouter from './routers/books'
 import authorRouter from './routers/authors'
 import userRouter from './routers/users'
 
+// Authentication Service
+import AuthenticationService from './services/authentication'
+
 // for authentication related routes
 import authRoutesRouter from './routers/authRoutes'
 
@@ -69,7 +72,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // Use book, author, user router
-app.use('/api/v1/books', bookRouter)
+app.use('/api/v1/books', AuthenticationService.checkTokenMW, bookRouter)
 app.use('/api/v1/authors', authorRouter)
 app.use('/api/v1/users', userRouter)
 

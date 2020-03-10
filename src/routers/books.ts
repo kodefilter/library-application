@@ -9,6 +9,7 @@ import {
   borrowBook,
   unborrowBook,
 } from '../controllers/book'
+import passport from 'passport'
 
 const router = express.Router()
 
