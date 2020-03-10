@@ -1,7 +1,6 @@
 import express from 'express'
 import passport from 'passport'
-import AuthenticationService from '../services/authentication'
-
+const {generateToken, sendToken} = require ('../util/token')
 
 const router = express.Router()
 
@@ -19,18 +18,31 @@ router.get('/logout',(req, res) => {
 
 
 // Every path we define here will get '/auth' prefix
-router.get('/google', passport.authenticate('google',{
-    scope:['profile'],
-    session: false,
-    accessType : 'offline',
-}))
+router.route('/google')
+.post(passport.authenticate('google-token', {session: false}), function(req,res,next){
+    if (!req.user) {
+        return res.send('User Not Authenticated');
+    }
+    req.auth = {
+        id: req.user.id
+    }
 
+    next()
 
-router.get('/google/callback', passport.authenticate('google', {
-    session: false,
-    failureRedirect: '/api/v1/books'
-}),function(req, res) { 
-    AuthenticationService.signToken(req, res)
-})
+},generateToken,sendToken)
+
+/*
+router.post('/google', passport.authenticate('google-token', {session: false}), function(req,res,next) {
+    if(!req.user) {
+        return res.status(401).send('User Not Authenticated')
+    }
+    req.auth = {
+        id: req.user.id
+    }
+    next()
+
+},TokenUtility.generateToken, TokenUtility.sendToken)
+*/
+
 
 export default router

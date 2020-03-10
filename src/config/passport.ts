@@ -1,39 +1,17 @@
 import passport from 'passport'
-import passportGoogle from 'passport-google-oauth20'
+const GoogleTokenStrategy = require('passport-google-token').Strategy
 
-import { Request, Response, NextFunction } from 'express'
-import User from '../models/User'
+const User = require('mongoose').model('User')
 
-const GoogleStrategy = passportGoogle.Strategy
-
-passport.serializeUser((user: any, done) => done(null,user.id))
-
-passport.deserializeUser(async (id, done) => {
-    try {
-      const user = await User.findById(id)
-      return done(null, user)
-    } catch (err) {
-      return done(err, null)
-    }
-})
-
-passport.use(new GoogleStrategy({
+passport.use(new GoogleTokenStrategy({
     clientID: process.env['GOOGLE_CLIENT_ID'] as string,
     clientSecret: process.env['GOOGLE_CLIENT_SECRET'] as string,
-    callbackURL: "/auth/google/callback"
-}, function(accessToken,refreshToken,profile,done){
-    //check if user already exists in our database
+    //callbackURL: 'auth/google/callback'
+},  function(accessToken,refreshToken,profile,done){
 
-    User.findOne({googleId: profile.id}).then((currentUser :any)=>{
-        if(currentUser){
-            return done(undefined, currentUser)
-        } else {
-            new User({
-                firstName : profile.name?.givenName,
-                lastName : profile.name?.familyName,
-                googleId : profile.id,
-            }).save().then(newUser => done(undefined, newUser))
-        }
+    // function to create or return user
+     User.upsertGoogleUser(accessToken, refreshToken, profile, function(err: string | Error | undefined, user: any) {
+        return done(err, user)
     })
 
 }))

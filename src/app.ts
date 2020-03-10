@@ -1,7 +1,7 @@
 import express from 'express'
 import compression from 'compression'
 import cors from 'cors'
-import session from 'express-session'
+import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import lusca from 'lusca'
 import mongo from 'connect-mongo'
@@ -11,7 +11,7 @@ import mongoose from 'mongoose'
 import bluebird from 'bluebird'
 import passport from 'passport'
 
-import { MONGODB_URI, SESSION_SECRET } from './util/secrets'
+import { MONGODB_URI } from './util/secrets'
 
 import bookRouter from './routers/books'
 import authorRouter from './routers/authors'
@@ -58,21 +58,22 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(lusca.xframe('SAMEORIGIN'))
 app.use(lusca.xssProtection(true))
-app.use(cors())
 
-app.use(session({
-  secret: process.env['SESSION_SECRET'] as string,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 600000}
-}))
+const corsOptions = {
+  origin: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  exposedHeaders: ['x-auth-token']
+}
+app.use(cors(corsOptions))
+app.use(cookieParser())
 
-// initialize passport and session of it
+
 app.use(passport.initialize())
-app.use(passport.session())
+
 
 // Use book, author, user router
-app.use('/api/v1/books', AuthenticationService.checkTokenMW, bookRouter)
+app.use('/api/v1/books', bookRouter)
 app.use('/api/v1/authors', authorRouter)
 app.use('/api/v1/users', userRouter)
 

@@ -1,22 +1,48 @@
-import React, { useState, useEffect } from 'react'
-//import { GoogleLogin } from 'react-google-login'
-import bookService from '../services/books'
+import React, { useState } from 'react'
+import { GoogleLogin } from 'react-google-login'
 
-import useBooks from '../hooks/useBooks'
 
 export default function Home() {
-  const [books, setBooks] = useState([{}])
 
-  useEffect(()=> {
-    bookService.getAll().then(initialBooks => {
-      setBooks(initialBooks)
-    })
+  const [ user, setUser] = useState({"user" : "",
+"token" : ""})
+  
+  const responseGoogle = (response :any) => {
+    const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken},null,2)], { type: 'application/json' })
+
+    const options: RequestInit = {
+      method: "POST",
+      body: tokenBlob,
+      mode: "cors",
+      cache: "default",
+    }
+    
+
+  fetch('http://localhost:3001/auth/google',options).then((r) => { 
+    const token = r.headers.get('x-auth-token')
+    r.json().then(user => {
+    
+      if(token) {
+          setUser({user,token})
+          // set state of the user
+        }
+      })
   })
+  }
 
   return (
     <>
-      <h1>Hello World</h1>
-      
-    </>
+    
+    <GoogleLogin
+    clientId="659114991649-egsmdi2p7p7fu360cpq4i7evom0beq6c.apps.googleusercontent.com"
+    buttonText="Login"
+    onSuccess={responseGoogle}
+    onFailure={responseGoogle}
+    cookiePolicy={'single_host_origin'}
+    />
+    {console.log(user)}
+
+    </>  
+    
   )
 }
