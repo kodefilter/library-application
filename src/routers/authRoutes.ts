@@ -1,20 +1,7 @@
 import express from 'express'
 import passport from 'passport'
-const {generateToken, sendToken, sendTokenAsCookie} = require ('../util/token')
-
+import AuthenticationService from '../services/authentication'
 const router = express.Router()
-
-/*
-
-router.get('/login',(req, res) => {
-    res.send('login')
-})
-
-router.get('/logout',(req, res) => {
-    // handle with passport TODO
-    res.send('logging out')
-})
-*/
 
 
 // Every path we define here will get '/auth' prefix
@@ -27,9 +14,10 @@ router.post('/google', passport.authenticate('google-token', {session: false}), 
         id: req.user.id,
         email: req.user.email
     }
+    console.log('reached here',req.auth)
     next()
 
-},generateToken,sendToken)
+},AuthenticationService.signAndSendToken)
 
 
 

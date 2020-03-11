@@ -7,7 +7,7 @@ const createToken = function(auth){
 
 module.exports = {
     
-     generateToken: function(req, res, next ){ 
+    generateToken: function(req, res, next ){ 
          req.token = createToken(req.auth)
          return next()
         },
