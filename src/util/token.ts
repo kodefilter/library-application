@@ -1,8 +1,7 @@
 import jwt from 'jsonwebtoken'
-import { nextTick } from 'async'
 
 const createToken = function(auth){ 
-    return jwt.sign({ id: auth.id },process.env['JWT_SECRET'] as string,{ expiresIn: 60 * 120})
+    return jwt.sign({ id: auth.id, email: auth.email },process.env['JWT_SECRET'] as string,{ expiresIn: 60 * 120})
 }
 
 

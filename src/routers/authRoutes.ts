@@ -24,7 +24,8 @@ router.post('/google', passport.authenticate('google-token', {session: false}), 
         return res.status(401).send('User Not Authenticated')
     }
     req.auth = {
-        id: req.user.id
+        id: req.user.id,
+        email: req.user.email
     }
     next()
 
