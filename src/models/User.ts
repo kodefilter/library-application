@@ -30,7 +30,7 @@ userSchema.statics.upsertGoogleUser = function (accessToken, refreshToken, profi
   
   //console.log('Statics Access Token', accessToken)
   const that = this
-  return this.findOne({ 'googleProvider.id': profile.id }, function (err, user) {
+  return this.findOne({ 'googleId': profile.id }, function (err, user) {
     if (!user) {
       const newUser = new that({
         firstName: profile.name.givenName,

@@ -1,6 +1,6 @@
 import express from 'express'
 import passport from 'passport'
-const {generateToken, sendToken} = require ('../util/token')
+const {generateToken, sendToken, sendTokenAsCookie} = require ('../util/token')
 
 const router = express.Router()
 
@@ -18,20 +18,7 @@ router.get('/logout',(req, res) => {
 
 
 // Every path we define here will get '/auth' prefix
-router.route('/google')
-.post(passport.authenticate('google-token', {session: false}), function(req,res,next){
-    if (!req.user) {
-        return res.send('User Not Authenticated');
-    }
-    req.auth = {
-        id: req.user.id
-    }
 
-    next()
-
-},generateToken,sendToken)
-
-/*
 router.post('/google', passport.authenticate('google-token', {session: false}), function(req,res,next) {
     if(!req.user) {
         return res.status(401).send('User Not Authenticated')
@@ -41,8 +28,8 @@ router.post('/google', passport.authenticate('google-token', {session: false}), 
     }
     next()
 
-},TokenUtility.generateToken, TokenUtility.sendToken)
-*/
+},generateToken,sendToken)
+
 
 
 export default router

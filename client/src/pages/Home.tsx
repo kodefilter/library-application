@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { GoogleLogin } from 'react-google-login'
+import Cookies from 'js-cookie'
 
 
 export default function Home() {
@@ -20,9 +21,11 @@ export default function Home() {
 
   fetch('http://localhost:3001/auth/google',options).then((r) => { 
     const token = r.headers.get('x-auth-token')
+    
     r.json().then(user => {
     
       if(token) {
+        Cookies.set('access-cookie', token)
           setUser({user,token})
           // set state of the user
         }
