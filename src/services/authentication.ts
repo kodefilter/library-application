@@ -1,11 +1,15 @@
 import jwt from 'jsonwebtoken'
 
-function checkToken (req, res, next){
+function checkAndVerifyToken (req, res, next){
     const token = req.headers['x-auth-token']
-    console.log('this is the token in CHECKING', token)
     if(typeof token !==  'undefined') {
-        
-        next()
+        jwt.verify(token,process.env['JWT_SECRET'] as string, (err, authData) => {
+            if(err) {            
+                res.sendStatus(500)
+            } else {
+                next()
+            }
+        })        
     } else {
         res.sendStatus(403)
     }
@@ -18,25 +22,7 @@ function signAndSendToken (req,res){
     
 }
 
-function verifyToken (req,res,next){
-    const token = req.headers['x-auth-token']
-    console.log('this is the token in verifying', token)
-
-    jwt.verify(token,process.env['JWT_SECRET'] as string, (err, authData) => {
-        if(err) {
-            
-            res.sendStatus(500)
-        } else {
-            next()
-        }
-    })
-    
-}
-
-
-
 export default {
-    checkToken,
-    verifyToken,
+    checkAndVerifyToken,
     signAndSendToken
 }

@@ -16,6 +16,16 @@ export type Product = {
   price: number
 }
 
+export type Book = {
+  _id: string
+  title: string
+  description: string
+  publisher: string
+  isAvailable: boolean
+  authors: string[] // to be implemented
+  
+}
+
 export type AddProductAction = {
   type: typeof ADD_PRODUCT
   payload: {
@@ -46,6 +56,10 @@ export type ProductState = {
   inCart: Product[]
 }
 
+export type BookState = {
+  items: Book[]
+}
+
 // Using dynamic keys from an enum
 export type UiState = {
   dialogOpen: {
@@ -56,4 +70,5 @@ export type UiState = {
 export type AppState = {
   product: ProductState
   ui: UiState
+  book: BookState
 }

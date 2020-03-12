@@ -1,4 +1,4 @@
-@baseurl = http://localhost:3000/api/v1
+@baseurl = http://localhost:3001/api/v1
 
 ### Get Books
 GET {{baseurl}}/books
@@ -8,3 +8,8 @@ GET {{baseurl}}/books?page=0&limit=3
 
 ### Get Authors
 GET {{baseurl}}/authors
+
+### Get Books
+GET {{baseurl}}/books
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjhmNTk2MDA5MGFiMjI4MmRkN2IxNyIsImVtYWlsIjoicHJhZGVlcC5naGltaXJlQGludGVncmlmeS5pbyIsImlhdCI6MTU4NDAxNjQzMCwiZXhwIjoxNTg0MDIzNjMwfQ.KLmgGrhpy-eZdaFlSCa3weHd1NGy_rzcpM1sCqtEmV0

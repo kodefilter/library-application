@@ -5,20 +5,16 @@ import Cookies from 'js-cookie'
 
 export default function Home() {
 
-  const [ user, setUser] = useState({"user" : "",
-"token" : ""})
+  const [ user, setUser] = useState({"user" : "","token" : ""})
   
   const responseGoogle = (response :any) => {
     const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken},null,2)], { type: 'application/json' })
-
     const options: RequestInit = {
       method: "POST",
       body: tokenBlob,
       mode: "cors",
       cache: "default",
     }
-    
-
   fetch('http://localhost:3001/auth/google',options).then((r) => { 
     const token = r.headers.get('x-auth-token')
     
