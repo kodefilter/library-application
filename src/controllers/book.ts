@@ -59,7 +59,7 @@ export const borrowBook = async (
 )=>{
   try {
     const borrow = req.body
-    const bookId = req.params.bookId
+    const bookId = req.body.bookId
     // make put request to /books/borrow for this
     /* this is todo for thursday 05.03.2020*/
 

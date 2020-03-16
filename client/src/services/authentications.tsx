@@ -8,6 +8,7 @@ fetch('http://localhost:3001/auth/google',options).then((r) => {
     r.json().then(user => {
       if(token) {
         Cookies.set('access-cookie', token)
+        Cookies.set('current-user',user)
           //setUser({user,token})
           // set current user of the store here
           // set state of the user

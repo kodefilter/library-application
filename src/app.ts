@@ -73,7 +73,7 @@ app.use(passport.initialize())
 
 
 // Use book, author, user router
-app.use('/api/v1/books', AuthenticationService.checkAndVerifyToken, bookRouter)
+app.use('/api/v1/books', /*AuthenticationService.checkAndVerifyToken*/ bookRouter)
 app.use('/api/v1/authors', authorRouter)
 app.use('/api/v1/users', userRouter)
 

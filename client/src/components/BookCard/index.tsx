@@ -8,6 +8,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Book } from '../../types';
+import LendingsService from '../../services/lendings'
+import Cookies from 'js-cookie';
 
 
 const useStyles = makeStyles({
@@ -23,7 +25,24 @@ export type BookCardProps = {
 
 export default function BookCard({book}: BookCardProps) {
 
-   //book in items array
+
+  const handleBorrow = () => {
+
+    const obj = {
+      'userId' : Cookies.getJSON('current-user')._id,
+      'bookId' : book._id
+    }
+
+    const blob = new Blob([JSON.stringify(obj, null, 2)], {type : 'application/json'});
+    
+    const options: RequestInit = {
+      method: "PUT",
+      body: blob,
+      mode: "cors",
+      cache: "default",
+    }
+    LendingsService.borrow(options)
+  }
   
 
   const classes = useStyles();
@@ -53,9 +72,7 @@ export default function BookCard({book}: BookCardProps) {
         <Button size="small" color="primary">
           {book.publisher}
         </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+        <Button size="small" color="primary" onClick={handleBorrow}>{book.isAvailable ? 'Borrow' : 'Unborrow'}</Button>
       </CardActions>
     </Card>
     

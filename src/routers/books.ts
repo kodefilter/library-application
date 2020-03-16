@@ -14,9 +14,9 @@ import passport from 'passport'
 const router = express.Router()
 
 // Every path we define here will get /api/v1/books prefix
+router.put('/borrow',borrowBook) //user needs to go to specifc book to borrow and unborrow
+router.put('/unborrow', unborrowBook)
 router.get('/', findAll)
-router.put('/:bookId/borrow',borrowBook) //user needs to go to specifc book to borrow and unborrow
-router.put('/:bookId/unborrow', unborrowBook)
 router.get('/:bookId', findById)
 router.put('/:bookId', updateBook)
 router.delete('/:bookId', deleteBook)
