@@ -3,6 +3,11 @@ export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 export const TOGGLE_DIALOG = 'TOGGLE_DIALOG'
 
+// ACTION TYPES FOR BOOK
+export const GET_ALL_BOOKS = 'GET_ALL_BOOKS'
+export const CREATE_BOOK = 'CREATE_BOOK'
+
+
 // Enum
 export enum DialogType {
   SignIn = 'signIn',
@@ -25,6 +30,22 @@ export type Book = {
   authors: string[] // to be implemented
   
 }
+
+export type getAllBooksAction = {
+  type: typeof GET_ALL_BOOKS
+  payload: {
+    books: Book[]
+  }
+}
+
+export type createBookAction = {
+  type: typeof CREATE_BOOK
+  payload: {
+    book: Book
+  }
+}
+
+export type BookActions = getAllBooksAction | createBookAction
 
 export type AddProductAction = {
   type: typeof ADD_PRODUCT
