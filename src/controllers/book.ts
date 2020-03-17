@@ -82,7 +82,7 @@ export const unborrowBook = async (
 ) => {
   try {
     const unborrow = req.body
-    const bookId = req.params.bookId
+    const bookId = req.body.bookId
 
     const user = await User.findById(req.body.userId)
 

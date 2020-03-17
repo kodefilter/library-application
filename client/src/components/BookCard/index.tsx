@@ -28,6 +28,8 @@ export default function BookCard({book}: BookCardProps) {
 
   const handleBorrow = () => {
 
+
+
     const obj = {
       'userId' : Cookies.getJSON('current-user')._id,
       'bookId' : book._id
@@ -41,7 +43,7 @@ export default function BookCard({book}: BookCardProps) {
       mode: "cors",
       cache: "default",
     }
-    LendingsService.borrow(options)
+    book.isAvailable ? LendingsService.borrow(options) : LendingsService.unBorrow(options)
   }
   
 
