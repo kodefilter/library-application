@@ -6,6 +6,7 @@ export const TOGGLE_DIALOG = 'TOGGLE_DIALOG'
 // ACTION TYPES FOR BOOK
 export const GET_ALL_BOOKS = 'GET_ALL_BOOKS'
 export const CREATE_BOOK = 'CREATE_BOOK'
+export const BORROW_UNBORROW_BOOK = 'BORROW_UNBORROW_BOOK'
 
 
 // Enum
@@ -45,7 +46,14 @@ export type createBookAction = {
   }
 }
 
-export type BookActions = getAllBooksAction | createBookAction
+export type borrowUnborrowBookAction = {
+  type: typeof BORROW_UNBORROW_BOOK
+  payload: {
+    book: Book
+  }
+}
+
+export type BookActions = getAllBooksAction | createBookAction | borrowUnborrowBookAction
 
 export type AddProductAction = {
   type: typeof ADD_PRODUCT

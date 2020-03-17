@@ -1,12 +1,13 @@
-import Cookies from "js-cookie"
+
+
 
 const borrow = (options : RequestInit) => {
-  fetch('http://localhost:3001/api/v1/books/borrow',options).then((r) => { console.log(r)})
+  return fetch('http://localhost:3001/api/v1/books/borrow',options)
 }
 
 
 const unBorrow = (options : RequestInit) => {
-fetch('http://localhost:3001/api/v1/books/unborrow',options).then((r) => { console.log(r)})
+return fetch('http://localhost:3001/api/v1/books/unborrow',options)
 }
 
 //deleting, editing and getting single observation 

@@ -7,9 +7,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Book } from '../../types';
+import { Book, AppState } from '../../types';
 import LendingsService from '../../services/lendings'
 import Cookies from 'js-cookie';
+import { useSelector, useDispatch } from 'react-redux';
+import { borrowUnborrowBook } from '../../redux/actions';
 
 
 const useStyles = makeStyles({
@@ -25,10 +27,11 @@ export type BookCardProps = {
 
 export default function BookCard({book}: BookCardProps) {
 
+  const dispatch = useDispatch()
+
+
 
   const handleBorrow = () => {
-
-
 
     const obj = {
       'userId' : Cookies.getJSON('current-user')._id,
@@ -43,7 +46,33 @@ export default function BookCard({book}: BookCardProps) {
       mode: "cors",
       cache: "default",
     }
-    book.isAvailable ? LendingsService.borrow(options) : LendingsService.unBorrow(options)
+    LendingsService.borrow(options).then((res) => {
+      res.json().then(borrowedBook => {
+        dispatch(borrowUnborrowBook(borrowedBook))
+      })
+    })
+  }
+
+  const handleUnBorrow = () => {
+
+    const obj = {
+      'userId' : Cookies.getJSON('current-user')._id,
+      'bookId' : book._id
+    }
+
+    const blob = new Blob([JSON.stringify(obj, null, 2)], {type : 'application/json'});
+    
+    const options: RequestInit = {
+      method: "PUT",
+      body: blob,
+      mode: "cors",
+      cache: "default",
+    }
+    LendingsService.unBorrow(options).then((res) => {
+      res.json().then(borrowedBook => {
+        dispatch(borrowUnborrowBook(borrowedBook))
+      })
+    })
   }
   
 
@@ -74,7 +103,13 @@ export default function BookCard({book}: BookCardProps) {
         <Button size="small" color="primary">
           {book.publisher}
         </Button>
-        <Button size="small" color="primary" onClick={handleBorrow}>{book.isAvailable ? 'Borrow' : 'Unborrow'}</Button>
+        {book.isAvailable?
+        <Button size="small" color="primary" onClick={handleBorrow}>
+          Borrow
+        </Button>:
+        <Button size="small" color="primary" onClick={handleUnBorrow}>
+          Unborrow
+        </Button>}
       </CardActions>
     </Card>
     

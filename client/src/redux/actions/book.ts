@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import {
   GET_ALL_BOOKS,
   CREATE_BOOK,
+  BORROW_UNBORROW_BOOK,
   BookActions,
   Book,
 } from '../../types'
@@ -15,6 +16,16 @@ export const getAllBooks = ( books: Book[]): BookActions => {
       books
     }
   }
+}
+
+export const borrowUnborrowBook = ( book: Book): BookActions => {
+  return {
+    type: BORROW_UNBORROW_BOOK,
+    payload: {
+      book
+    }
+  }
+
 }
 
 export const createBook = (book: Book): BookActions => {
