@@ -61,8 +61,8 @@ export default function BookGridList() {
           <ListSubheader component="div">Library</ListSubheader>
         </GridListTile>
         {items.map(book => (
-          <GridListTile key={book.publisher}>
-            <BookCard book={book} />
+          <GridListTile key={book._id}>
+            <BookCard book={book}/>
           </GridListTile>
         ))}
       </GridList>

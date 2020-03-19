@@ -8,6 +8,9 @@ export const GET_ALL_BOOKS = 'GET_ALL_BOOKS'
 export const CREATE_BOOK = 'CREATE_BOOK'
 export const BORROW_UNBORROW_BOOK = 'BORROW_UNBORROW_BOOK'
 
+// ACTION TYOES FOR NOTIFICATION
+export const ADD_NOTIFICATION = 'ADD_NOTIFICATION'
+
 
 // Enum
 export enum DialogType {
@@ -22,6 +25,7 @@ export type Product = {
   price: number
 }
 
+//Book
 export type Book = {
   _id: string
   title: string
@@ -52,6 +56,16 @@ export type borrowUnborrowBookAction = {
     book: Book
   }
 }
+
+export type addNotificationAction = {
+  type: typeof ADD_NOTIFICATION
+  payload: {
+    errorMessage : string,
+    successMessage : string
+  }
+}
+
+export type NotificationActions = addNotificationAction
 
 export type BookActions = getAllBooksAction | createBookAction | borrowUnborrowBookAction
 
@@ -89,6 +103,11 @@ export type BookState = {
   items: Book[]
 }
 
+export type NotificationState = {
+  errorMessage: string,
+  successMessage: string,
+}
+
 // Using dynamic keys from an enum
 export type UiState = {
   dialogOpen: {
@@ -100,4 +119,5 @@ export type AppState = {
   product: ProductState
   ui: UiState
   book: BookState
+  notification : NotificationState
 }

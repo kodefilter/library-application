@@ -23,8 +23,7 @@ export default function book(
     return {
       ...state,
       items: state.items.map(currentBook => currentBook._id === book._id ?
-        { ...currentBook, isAvailable: book.isAvailable } :
-        currentBook)
+        { ...currentBook, isAvailable: book.isAvailable } : currentBook)
     }
   }
 

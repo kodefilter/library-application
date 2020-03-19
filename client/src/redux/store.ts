@@ -16,6 +16,10 @@ const initState: AppState = {
   book: {
     items: []
   },
+  notification: {
+    errorMessage : '',
+    successMessage : ''
+  }
 }
 
 export default function makeStore(initialState = initState) {

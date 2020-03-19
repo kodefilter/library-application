@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { Book, AppState } from '../../types';
 import LendingsService from '../../services/lendings'
 import Cookies from 'js-cookie';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { borrowUnborrowBook } from '../../redux/actions';
 
 
@@ -29,58 +29,42 @@ export default function BookCard({book}: BookCardProps) {
 
   const dispatch = useDispatch()
 
-
-
   const handleBorrow = () => {
 
     const obj = {
       'userId' : Cookies.getJSON('current-user')._id,
       'bookId' : book._id
     }
-
-    const blob = new Blob([JSON.stringify(obj, null, 2)], {type : 'application/json'});
     
+    const blob = new Blob([JSON.stringify(obj, null, 2)], {type : 'application/json'})
+
     const options: RequestInit = {
       method: "PUT",
       body: blob,
       mode: "cors",
       cache: "default",
     }
-    LendingsService.borrow(options).then((res) => {
-      res.json().then(borrowedBook => {
-        dispatch(borrowUnborrowBook(borrowedBook))
+    if(book.isAvailable) {
+      LendingsService.borrow(options).then((res) => {
+        res.json().then(borrowedBook => {
+          dispatch(borrowUnborrowBook(borrowedBook))
+        })
       })
-    })
-  }
+    }else {
+      LendingsService.unBorrow(options).then((res) => {
+        res.json().then(borrowedBook => {
+          dispatch(borrowUnborrowBook(borrowedBook))
+        })
+      })
 
-  const handleUnBorrow = () => {
-
-    const obj = {
-      'userId' : Cookies.getJSON('current-user')._id,
-      'bookId' : book._id
     }
-
-    const blob = new Blob([JSON.stringify(obj, null, 2)], {type : 'application/json'});
     
-    const options: RequestInit = {
-      method: "PUT",
-      body: blob,
-      mode: "cors",
-      cache: "default",
-    }
-    LendingsService.unBorrow(options).then((res) => {
-      res.json().then(borrowedBook => {
-        dispatch(borrowUnborrowBook(borrowedBook))
-      })
-    })
   }
-  
 
   const classes = useStyles();
 
   return (
 
-    
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -107,7 +91,7 @@ export default function BookCard({book}: BookCardProps) {
         <Button size="small" color="primary" onClick={handleBorrow}>
           Borrow
         </Button>:
-        <Button size="small" color="primary" onClick={handleUnBorrow}>
+        <Button size="small" color="secondary" onClick={handleBorrow}>
           Unborrow
         </Button>}
       </CardActions>
