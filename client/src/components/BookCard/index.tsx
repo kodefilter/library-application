@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Book, AppState, Message } from '../../types';
+import { Book } from '../../types';
 import LendingsService from '../../services/lendings'
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
@@ -26,7 +26,7 @@ export type BookCardProps = {
     book: Book
 }
 
-export default function BookCard({book}: BookCardProps) {
+export default function BookCard({book}: any) {
 
   const dispatch = useDispatch()
 
@@ -54,6 +54,11 @@ export default function BookCard({book}: BookCardProps) {
           dispatch(addNotification({errorMessage: '', successMessage: ''}))
           },3000)
         })
+      }).catch(error => {
+        dispatch(addNotification({errorMessage : error.response.data.error, successMessage: ''}))
+        setTimeout(()=>{
+          dispatch(addNotification({errorMessage: '', successMessage: ''}))
+        },3000)
       })
     }else {
       LendingsService.unBorrow(options).then((res) => {
@@ -64,6 +69,11 @@ export default function BookCard({book}: BookCardProps) {
           dispatch(addNotification({errorMessage: '', successMessage: ''}))
           },3000)
         })
+      }).catch(error => {
+        dispatch(addNotification({errorMessage : ` Error : ${error.response.data.error}`, successMessage: ''}))
+        setTimeout(()=>{
+          dispatch(addNotification({errorMessage: '', successMessage: ''}))
+        },3000)
       })
 
     }
@@ -97,10 +107,10 @@ export default function BookCard({book}: BookCardProps) {
           {book.publisher}
         </Button>
         {book.isAvailable?
-        <Button size="small" color="primary" onClick={handleBorrow}>
+        <Button size="small" variant="contained" color="primary" onClick={handleBorrow}>
           Borrow
         </Button>:
-        <Button size="small" color="secondary" onClick={handleBorrow}>
+        <Button size="small" variant="contained" color="secondary" onClick={handleBorrow}>
           Unborrow
         </Button>}
       </CardActions>

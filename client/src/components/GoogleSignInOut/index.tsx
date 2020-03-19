@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import Cookies from 'js-cookie'
+import React from 'react'
 import { GoogleLogin } from 'react-google-login'
 import AuthenticationsService from '../../services/authentications'
 

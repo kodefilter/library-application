@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Cookies from 'js-cookie'
 
 const signIn = (options : RequestInit) => {

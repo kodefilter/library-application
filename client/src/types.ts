@@ -27,13 +27,10 @@ export type Product = {
 
 //Book
 export type Book = {
-  _id: string
   title: string
   description: string
   publisher: string
-  isAvailable: boolean
-  authors: string[] // to be implemented
-  
+  isAvailable: boolean  
 }
 
 export type Message = {

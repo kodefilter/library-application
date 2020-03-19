@@ -18,11 +18,17 @@ export default function book(
     return { ...state, items: books }
   }
 
+  case CREATE_BOOK: {
+    const { book } = action.payload
+    //console.log('Here inside reducer',book)
+    return {...state, items: [ ...state.items, book]}
+  }
+
   case BORROW_UNBORROW_BOOK: {
     const { book } = action.payload
     return {
       ...state,
-      items: state.items.map(currentBook => currentBook._id === book._id ?
+      items: state.items.map(currentBook => currentBook.title === book.title ?
         { ...currentBook, isAvailable: book.isAvailable } : currentBook)
     }
   }
