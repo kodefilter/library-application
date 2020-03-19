@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function NotificationBar() {
   const classes = useStyles()
 
-  const {errorMessage, successMessage} = useSelector((state: AppState) => state.notification)
+  const {errorMessage,successMessage} = useSelector((state: AppState) => state.notification.message)
+
 
   if (errorMessage === '' && successMessage === '') {
     return null 
@@ -32,3 +33,5 @@ export default function NotificationBar() {
     </div>
   );
 }
+
+

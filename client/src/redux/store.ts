@@ -17,8 +17,10 @@ const initState: AppState = {
     items: []
   },
   notification: {
-    errorMessage : '',
-    successMessage : ''
+    message: {
+      errorMessage: '',
+      successMessage: '',
+    }
   }
 }
 

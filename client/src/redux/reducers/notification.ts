@@ -4,22 +4,17 @@ import {
     NotificationActions,
   } from '../../types'
 
-
-  const defaultState: NotificationState = {
-        errorMessage: '',
-        successMessage: '',
-  }
   
   export default function notification(
-    state: NotificationState = defaultState,
+    state: NotificationState = { message: { errorMessage: '', successMessage: ''} },
     action: NotificationActions
   ): NotificationState {
     switch (action.type) {
   
   
     case ADD_NOTIFICATION: {
-      //const { notification } = action.payload
-      return { ...state, errorMessage: action.payload.errorMessage, successMessage: action.payload.successMessage }
+      const { message } = action.payload
+      return { ...state, message: message }
     }
   
     default:

@@ -36,6 +36,11 @@ export type Book = {
   
 }
 
+export type Message = {
+  errorMessage : string,
+  successMessage : string
+}
+
 export type getAllBooksAction = {
   type: typeof GET_ALL_BOOKS
   payload: {
@@ -60,8 +65,7 @@ export type borrowUnborrowBookAction = {
 export type addNotificationAction = {
   type: typeof ADD_NOTIFICATION
   payload: {
-    errorMessage : string,
-    successMessage : string
+    message : Message
   }
 }
 
@@ -103,9 +107,10 @@ export type BookState = {
   items: Book[]
 }
 
+
+
 export type NotificationState = {
-  errorMessage: string,
-  successMessage: string,
+  message : Message
 }
 
 // Using dynamic keys from an enum

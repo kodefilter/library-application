@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { fetchBooks } from '../redux/actions'
 import ApplicationBar from '../components/ApplicationBar'
 import BookGridList from '../components/BookGridList'
+import NotificationBar from '../components/NotificationBar'
 
 
 export default function Home() {
@@ -16,7 +17,7 @@ export default function Home() {
   return (
     <>
     <ApplicationBar />
-    <Notification errorMessage={errorMessage} successMessage={successMessage} />
+    <NotificationBar />
     <BookGridList />
     </>
     

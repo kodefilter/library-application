@@ -7,11 +7,12 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Book, AppState } from '../../types';
+import { Book, AppState, Message } from '../../types';
 import LendingsService from '../../services/lendings'
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { borrowUnborrowBook } from '../../redux/actions';
+import { addNotification } from '../../redux/actions/notification';
 
 
 const useStyles = makeStyles({
@@ -35,7 +36,7 @@ export default function BookCard({book}: BookCardProps) {
       'userId' : Cookies.getJSON('current-user')._id,
       'bookId' : book._id
     }
-    
+
     const blob = new Blob([JSON.stringify(obj, null, 2)], {type : 'application/json'})
 
     const options: RequestInit = {
@@ -48,12 +49,20 @@ export default function BookCard({book}: BookCardProps) {
       LendingsService.borrow(options).then((res) => {
         res.json().then(borrowedBook => {
           dispatch(borrowUnborrowBook(borrowedBook))
+          dispatch(addNotification({errorMessage: '', successMessage: `You Just borrowed ${borrowedBook.title}`}))
+          setTimeout(()=>{
+          dispatch(addNotification({errorMessage: '', successMessage: ''}))
+          },3000)
         })
       })
     }else {
       LendingsService.unBorrow(options).then((res) => {
         res.json().then(borrowedBook => {
           dispatch(borrowUnborrowBook(borrowedBook))
+          dispatch(addNotification({errorMessage: '', successMessage: `You Just unborrowed ${borrowedBook.title}`}))
+          setTimeout(()=>{
+          dispatch(addNotification({errorMessage: '', successMessage: ''}))
+          },3000)
         })
       })
 
