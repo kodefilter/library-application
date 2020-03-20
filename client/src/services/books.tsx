@@ -1,17 +1,36 @@
-import axios from 'axios'
 import { Book } from '../types'
-const baseUrl = 'http://localhost:3001/api/v1/books/'
+import Cookies from 'js-cookie'
+const baseUrl = 'http://localhost:3001/api/v1/books'
 
+let myHeaders = new Headers()
+myHeaders.append('x-auth-token', Cookies.get('access-cookie') as string)
+
+const getAll = () => {
+
+    const options: RequestInit = {
+        method: "GET",
+        mode: "cors",
+        cache: "default",
+        headers : myHeaders
+      }
+    return fetch(baseUrl,options)
+}
 
 const create = (newBook: Book) => {
-    const request = axios.post(baseUrl, newBook)
-    return request.then(response => response.data)  
+
+    const blob = new Blob([JSON.stringify(newBook, null, 2)], {type : 'application/json'})
+
+    const options: RequestInit = {
+      method: "POST",
+      body: blob,
+      mode: "cors",
+      cache: "default",
+      headers : myHeaders
+    }
+    return fetch(baseUrl,options)
 }
 
-const update = (bookId: string, newBook: Book) => {
-    const request = axios.put(`${baseUrl}/${bookId}`, newBook)
-    return request.then(response => response.data)
-}
 
 
-export default { create, update }
+
+export default { getAll, create }

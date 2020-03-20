@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -45,10 +45,9 @@ const useStyles = makeStyles((theme: Theme) =>
  * ];
  */
 export default function BookGridList() {
+  const items = useSelector((state: AppState) => state.book.items)
 
-
-   //book in items array
-  const items = useSelector((state: AppState) => state.book.items) 
+  console.log('Rached here at gridlist',items)
   
   const classes = useStyles();
 

@@ -15,12 +15,12 @@ export default function book(
 
   case GET_ALL_BOOKS: {
     const { books } = action.payload
+    console.log('Reached here at reducer')
     return { ...state, items: books }
   }
 
   case CREATE_BOOK: {
     const { book } = action.payload
-    //console.log('Here inside reducer',book)
     return {...state, items: [ ...state.items, book]}
   }
 

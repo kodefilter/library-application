@@ -10,7 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import BookService from '../../services/books'
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState, Book } from '../../types';
-import { createBook, addNotification } from '../../redux/actions';
+import {addNotification, addBookThunk } from '../../redux/actions';
 
 export default function BookForm() {
   const [open, setOpen] = useState(false)
@@ -45,9 +45,8 @@ export default function BookForm() {
     setOpen(false)
   }
 
-  const addBook = (e: React.FormEvent) => {
+  const addBook = async (e: React.FormEvent) => {
     e.preventDefault() 
-
     const newBook = {
       title: newTitle,
       description: newDescription,
@@ -56,38 +55,30 @@ export default function BookForm() {
     }
 
     const book = items.find(book => book.title === newTitle)
-    const changedBook = { ...book, title: newTitle, description: newDescription, publisher: newPublisher}
-
-    //console.log(changedPerson)
-    
+    const changedBook = { ...book, title: newTitle, description: newDescription, publisher: newPublisher}    
 
     if( typeof book === 'undefined' ){
-
-      BookService
-        .create(newBook)
-        .then( (addedBook: Book) => {
-            //here disptach adding book to the store
-          dispatch(createBook(addedBook))
-
-          setNewTitle('')
-          setNewDescription('')
-          setNewPublisher('')
-
-          dispatch(addNotification({errorMessage: '', successMessage: `You Just added ${addedBook.title}`}))
-          setTimeout(()=>{
-          dispatch(addNotification({errorMessage: '', successMessage: ''}))
-          },3000)
-        }).catch(error => {
-        
-          setNewTitle('')
-          setNewDescription('')
-          setNewPublisher('')
+        try {
+            dispatch(addBookThunk(newBook))
+            setNewTitle('')
+            setNewDescription('')
+            setNewPublisher('')
+  
+            dispatch(addNotification({errorMessage: '', successMessage: `You Just added ${newBook.title}`}))
+            setTimeout(()=>{
+            dispatch(addNotification({errorMessage: '', successMessage: ''}))
+            },3000)
+            
+        } catch (error) {
+            setNewTitle('')
+            setNewDescription('')
+            setNewPublisher('')
 
             dispatch(addNotification({errorMessage : ` Error : ${error.response.data.error}`, successMessage: ''}))
             setTimeout(()=>{
               dispatch(addNotification({errorMessage: '', successMessage: ''}))
-            },3000)
-        })
+            },3000)    
+        }
 
     } else {
 
