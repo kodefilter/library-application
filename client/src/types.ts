@@ -11,6 +11,11 @@ export const BORROW_UNBORROW_BOOK = 'BORROW_UNBORROW_BOOK'
 // ACTION TYOES FOR NOTIFICATION
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION'
 
+// ACTION TYPES FOR AUTHOR
+export const GET_ALL_AUTHORS = 'GET_ALL_AUTHORS'
+export const CREATE_AUTHOR = 'CREATE_AUTHOR'
+export const REMOVE_AUTHOR = 'REMOVE_AUTHOR'
+
 
 // Enum
 export enum DialogType {
@@ -25,12 +30,32 @@ export type Product = {
   price: number
 }
 
+//An Author
+export type Author = {
+  firstName : string
+  lastName : string
+}
+
 //Book
 export type Book = {
   title: string
   description: string
   publisher: string
   isAvailable: boolean  
+}
+
+export type getAllAuthorsAction = {
+  type : typeof GET_ALL_AUTHORS
+  payload: {
+    authors : Author[]
+  }
+}
+
+export type createAuthorAction = {
+  type: typeof CREATE_AUTHOR
+  payload: {
+    author: Author
+  }
 }
 
 export type Message = {
@@ -66,9 +91,13 @@ export type addNotificationAction = {
   }
 }
 
+
+
 export type NotificationActions = addNotificationAction
 
 export type BookActions = getAllBooksAction | createBookAction | borrowUnborrowBookAction
+
+export type AuthorActions = getAllAuthorsAction | createAuthorAction
 
 export type AddProductAction = {
   type: typeof ADD_PRODUCT
@@ -104,7 +133,9 @@ export type BookState = {
   items: Book[]
 }
 
-
+export type AuthorState = {
+  authors: Author[]
+}
 
 export type NotificationState = {
   message : Message
@@ -121,5 +152,6 @@ export type AppState = {
   product: ProductState
   ui: UiState
   book: BookState
+  author: AuthorState
   notification : NotificationState
 }

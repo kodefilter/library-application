@@ -9,33 +9,26 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import BookService from '../../services/books'
 import { useSelector, useDispatch } from 'react-redux';
-import { AppState, Book } from '../../types';
-import {addNotification, addBookThunk } from '../../redux/actions';
+import { AppState, Author } from '../../types';
+import {addAuthorThunk } from '../../redux/actions';
 
-export default function BookForm() {
+export default function AuthorForm() {
+
   const [open, setOpen] = useState(false)
-  const [newTitle, setNewTitle] = useState("") 
-  const [newDescription, setNewDescription] = useState("")
-  const [newPublisher, setNewPublisher] = useState("")
+  const [newFirstName, setNewFirstName] = useState("") 
+  const [newLastName, setNewLastName] = useState("")
 
-  const items = useSelector((state: AppState) => state.book.items)
+  const authors = useSelector((state: AppState) => state.author.authors)
 
   const dispatch = useDispatch()
 
 
-
-
-  //input fields of book which are required, more can be added here
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(e.target.value) 
+  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewFirstName(e.target.value) 
   }
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewDescription(e.target.value) 
+  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewLastName(e.target.value) 
   }
-  const handlePublisherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewPublisher(e.target.value) 
-  }
-
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -45,28 +38,29 @@ export default function BookForm() {
     setOpen(false)
   }
 
-  const addBook = async (e: React.FormEvent) => {
+ 
+  const addAuthor = async (e: React.FormEvent) => {
     e.preventDefault() 
-    const newBook = {
-      title: newTitle,
-      description: newDescription,
-      publisher: newPublisher,
-      isAvailable: false,
+    const newAuthor = {
+      firstName: newFirstName,
+      lastName: newLastName
     }
 
-    const book = items.find(book => book.title === newTitle)
-    const changedBook = { ...book, title: newTitle, description: newDescription, publisher: newPublisher}    
+    //check if author with same first and last name exists check with lowering the case
 
-    if( typeof book === 'undefined' ){
+    const author = authors.find(author => author.firstName === newFirstName && author.lastName === newLastName )
+
+    const changedAuthor = { ...author, lastName: newLastName }    
+
+    if( typeof author === 'undefined' ){
         
-            dispatch(addBookThunk(newBook))
-            setNewTitle('')
-            setNewDescription('')
-            setNewPublisher('')
+            dispatch(addAuthorThunk(newAuthor))
+            setNewFirstName('')
+            setNewLastName('')
             
     } else {
 
-      if (window.confirm(`${changedBook.title} is alreay in the library, replace the details with new one?`)) { 
+      if (window.confirm(`${changedAuthor.lastName} is alreay in the library, replace the details with new one?`)) { 
       /*  
       BookService
         .update(changedBook.title, changedBook)
@@ -93,7 +87,7 @@ export default function BookForm() {
   return (
     <div>
       <Button variant="contained" color="secondary" onClick={handleClickOpen}>
-        ADD OR UPDATE BOOK
+        ADD OR UPDATE AUTHOR
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add new book</DialogTitle>
@@ -101,14 +95,14 @@ export default function BookForm() {
           <DialogContentText>
             Add new book to the library if it exists based on title, its details will be updated
           </DialogContentText>
-          <form onSubmit={addBook}>
+          <form onSubmit={addAuthor}>
 
           <TextField
           id="outlined-full-width"
-          label="Title"
+          label="First Name"
           style={{ margin: 8 }}
-          value={newTitle}
-          onChange={handleTitleChange}
+          value={newFirstName}
+          onChange={handleFirstNameChange}
           fullWidth
           margin="normal"
           InputLabelProps={{
@@ -118,36 +112,23 @@ export default function BookForm() {
         />
         <TextField
           id="outlined-full-width"
-          label="Publisher"
+          label="Last Name"
           style={{ margin: 8 }}
-          value={newPublisher}
-          onChange={handlePublisherChange}
+          value={newLastName}
+          onChange={handleLastNameChange}
           fullWidth
           margin="normal"
           InputLabelProps={{
             shrink: true,
           }}
           variant="outlined"
-        />
-        <TextField
-          id="outlined-full-width"
-          label="Description"
-          style={{ margin: 8 }}
-          value={newDescription}
-          onChange={handleDescriptionChange}
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />        
+        />   
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button onClick={handleClose} type="submit" color="primary" variant="contained">
-            Add / Update Book
+            Add / Update Author
           </Button>
         </DialogActions>
         </form>

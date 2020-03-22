@@ -69,12 +69,11 @@ export function borrowBookThunk(book: Book){
 //Redux thunk for adding book use create(book)
 export function addBookThunk(book: Book){
   return (dispatch: Dispatch) => {
-    return BookService.create(book)
-    .then(resp => resp.json())
-    .then(book => {
-      console.log(book)
-      dispatch(createBook(book))
-    })
+      return BookService.create(book)
+      .then( addedBook => {
+        dispatch(createBook(addedBook))
+        dispatch(addNotification({ errorMessage: '', successMessage: `You just added ${addedBook.title}` }))
+      })
   }
 }
 
@@ -82,7 +81,6 @@ export function addBookThunk(book: Book){
 export function fetchBooksThunk() {
   return (dispatch: Dispatch) => {
     return BookService.getAll()
-      .then(resp => resp.json())
       .then(books => {
         dispatch(getAllBooks(books))
       })

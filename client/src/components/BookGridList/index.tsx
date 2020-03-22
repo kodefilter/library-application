@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../types';
 import BookCard from '../BookCard';
 import BookForm from '../BookForm';
+import AuthorForm from '../AuthorForm/intex';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,7 +56,7 @@ export default function BookGridList() {
     <div className={classes.root}>
       <GridList cellHeight={300} className={classes.gridList} cols={4}>
         <GridListTile key="Subheader" cols={8} style={{ height: 'auto' }}>
-          <ListSubheader component="div"><BookForm /></ListSubheader>
+          <ListSubheader component="div"><BookForm /><AuthorForm /></ListSubheader>
         </GridListTile>
         {items.map(book => (
           <GridListTile key={book.title}>

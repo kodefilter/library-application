@@ -16,6 +16,9 @@ const initState: AppState = {
   book: {
     items: []
   },
+  author: {
+    authors: []
+  },
   notification: {
     message: {
       errorMessage: '',
