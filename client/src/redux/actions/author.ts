@@ -29,15 +29,17 @@ export const createAuthor = (author: Author): AuthorActions => {
   }
 }
 
-//Redux thunk for adding author use create(author)
+//Redux thunk for adding author use create(author) usinfg fetch in service
 export function addAuthorThunk(author: Author){
-  return (dispatch: Dispatch) => {
-      return AuthorService.create(author)
-      .then(resp => resp.json())
-      .then( addedAuthor => {
-        dispatch(createAuthor(addedAuthor))
-        dispatch(addNotification({ errorMessage: '', successMessage: `You just added ${addedAuthor.firstName}` }))
-      })
+  return async (dispatch: Dispatch) => {
+      try {
+      const response = await AuthorService.create(author)
+      dispatch(createAuthor(response.data))
+      dispatch(addNotification({ errorMessage: '', successMessage: `You just added ${response.data.firstName}` }))
+    }
+    catch (error) {
+      dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
+    }
   }
 }
 
@@ -45,8 +47,11 @@ export function addAuthorThunk(author: Author){
 export function fetchAuthorsThunk() {
   return (dispatch: Dispatch) => {
     return AuthorService.getAll()
-      .then(authors => {
-        dispatch(getAllAuthors(authors))
-      })
+    .then(response => {
+      dispatch(getAllAuthors(response.data))
+    })
+    .catch(error => {
+      dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
+    })
   }
 }
