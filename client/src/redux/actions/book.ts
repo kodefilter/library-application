@@ -13,9 +13,9 @@ import {
   BookFormValues,
 } from '../../types'
 import { addNotification } from './notification'
+import { response } from 'express'
 
 export const getAllBooks = ( books: Book[]): BookActions => {
-  console.log('Reached here at getAllBooks')
   return {
     type: GET_ALL_BOOKS,
     payload: {
@@ -51,7 +51,7 @@ export const createBook = (book: Book): BookActions => {
     },
   }
 }
-
+// this service is using fetch and dispatch happening here
 export function unborrowBookThunk(book: Book){
   return (dispatch: Dispatch) => {
     return LendingService.unBorrow(book)
@@ -63,18 +63,14 @@ export function unborrowBookThunk(book: Book){
   }
 }
 
+// this service is using axios and dispatch is sent from the service
 export function borrowBookThunk(book: Book){
-  return (dispatch: Dispatch) => {
-    return LendingService.borrow(book)
-    .then(resp => resp.json())
-    .then(book => {
-      console.log(book)
-      dispatch(borrowUnborrowBook(book))
-    })
+  return async (dispatch: Dispatch) => {
+    return LendingService.borrow(book, dispatch)
   }
 }
 
-//Redux thunk for adding book use create(book)
+//this service is using axios and dispatch is happening here
 export function removeBookThunk(book: Book){
   return async (dispatch: Dispatch) => {
       try {
