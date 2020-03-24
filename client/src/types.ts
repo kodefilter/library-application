@@ -6,6 +6,7 @@ export const TOGGLE_DIALOG = 'TOGGLE_DIALOG'
 // ACTION TYPES FOR BOOK
 export const GET_ALL_BOOKS = 'GET_ALL_BOOKS'
 export const CREATE_BOOK = 'CREATE_BOOK'
+export const REMOVE_BOOK = 'REMOVE_BOOK'
 export const BORROW_UNBORROW_BOOK = 'BORROW_UNBORROW_BOOK'
 
 // ACTION TYOES FOR NOTIFICATION
@@ -36,8 +37,12 @@ export type Author = {
   lastName : string
 }
 
+export type BookFormValues = Omit<Book, "_id">
+
+
 //Book
 export type Book = {
+  _id: string
   title: string
   description: string
   publisher: string
@@ -77,6 +82,13 @@ export type createBookAction = {
   }
 }
 
+export type removeBookAction = {
+  type: typeof REMOVE_BOOK
+  payload: {
+    book: Book
+  }
+}
+
 export type borrowUnborrowBookAction = {
   type: typeof BORROW_UNBORROW_BOOK
   payload: {
@@ -95,7 +107,7 @@ export type addNotificationAction = {
 
 export type NotificationActions = addNotificationAction
 
-export type BookActions = getAllBooksAction | createBookAction | borrowUnborrowBookAction
+export type BookActions = getAllBooksAction | createBookAction | borrowUnborrowBookAction | removeBookAction
 
 export type AuthorActions = getAllAuthorsAction | createAuthorAction
 

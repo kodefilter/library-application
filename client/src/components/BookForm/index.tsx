@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import BookService from '../../services/books'
 import { useSelector, useDispatch } from 'react-redux';
-import { AppState, Book } from '../../types';
+import { AppState, Book, BookFormValues } from '../../types';
 import {addNotification, addBookThunk } from '../../redux/actions';
 
 export default function BookForm() {
@@ -46,8 +46,9 @@ export default function BookForm() {
   }
 
   const addBook = async (e: React.FormEvent) => {
-    e.preventDefault() 
-    const newBook = {
+    e.preventDefault()
+
+    const newBook: BookFormValues = {
       title: newTitle,
       description: newDescription,
       publisher: newPublisher,

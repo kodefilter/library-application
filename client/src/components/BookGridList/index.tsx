@@ -60,7 +60,7 @@ export default function BookGridList() {
         </GridListTile>
         {items.map(book => (
           <GridListTile key={book.title}>
-            <BookCard book={book}/>
+            <BookCard key={book.title} book={book}/>
           </GridListTile>
         ))}
       </GridList>

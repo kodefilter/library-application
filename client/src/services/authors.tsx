@@ -1,9 +1,6 @@
 import { Author } from '../types'
 import Cookies from 'js-cookie'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { addNotification, createAuthor, getAllAuthors } from '../redux/actions'
-import { Dispatch } from 'redux'
 const baseUrl = 'http://localhost:3001/api/v1/authors'
 
 let myHeaders = new Headers()
@@ -18,6 +15,8 @@ const getAll = () => {
 const create = (newAuthor: Author) => {
     return axios({ method: 'post', url: baseUrl, data: newAuthor, headers: myHeaders })
 }
+
+// delete request is going to delete entry in the database and then returns 204 status
 
 
 export default { getAll, create }

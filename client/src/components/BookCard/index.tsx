@@ -9,8 +9,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Book } from '../../types';
 import { useDispatch } from 'react-redux';
-import { borrowBookThunk, unborrowBookThunk } from '../../redux/actions';
+import { borrowBookThunk, unborrowBookThunk, removeBookThunk } from '../../redux/actions';
 import { addNotification } from '../../redux/actions/notification';
+import { IconButton } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const useStyles = makeStyles({
@@ -27,6 +29,13 @@ export type BookCardProps = {
 export default function BookCard({book}: any) {
 
   const dispatch = useDispatch()
+
+  const handleDelete = () => {
+
+    if (window.confirm(`Delete ${book.title}`)) { 
+      dispatch(removeBookThunk(book))
+    }
+  }
 
   const handleBorrow = () => {
     if(book.isAvailable) {
@@ -86,6 +95,9 @@ export default function BookCard({book}: any) {
         <Button size="small" color="primary">
           {book.publisher}
         </Button>
+        <IconButton color="secondary" aria-label="delete book" component="span" onClick={handleDelete}>
+          <DeleteIcon />
+        </IconButton>
         {book.isAvailable?
         <Button size="small" variant="contained" color="primary" onClick={handleBorrow}>
           Borrow
@@ -98,4 +110,3 @@ export default function BookCard({book}: any) {
     
   );
 }
-

@@ -32,6 +32,7 @@ export const createBook = async (
 
     const savedBook = await BookService.create(book)
 
+    /*
     // find the authors of the book and save the book id to their books array
     body.authors.map(async (author :AuthorDocument)=>{
       const foundAuthor = await Author.findById(author._id)
@@ -39,6 +40,7 @@ export const createBook = async (
       foundAuthor?.books.push(savedBook._id)
       await foundAuthor?.save()
     })
+    */
 
     res.json(savedBook)
 

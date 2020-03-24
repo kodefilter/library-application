@@ -1,7 +1,5 @@
 import { Dispatch } from 'redux'
-import Cookies from 'js-cookie'
 import AuthorService from '../../services/authors'
-import LendingService from '../../services/lendings'
 
 import {
   GET_ALL_AUTHORS,
@@ -45,13 +43,13 @@ export function addAuthorThunk(author: Author){
 
 // Async action processed by redux-thunk middleware
 export function fetchAuthorsThunk() {
-  return (dispatch: Dispatch) => {
-    return AuthorService.getAll()
-    .then(response => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await AuthorService.getAll()
       dispatch(getAllAuthors(response.data))
-    })
-    .catch(error => {
+    }
+    catch (error) {
       dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
-    })
+    }
   }
 }
