@@ -1,5 +1,4 @@
 import { Dispatch } from 'redux'
-import Cookies from 'js-cookie'
 import BookService from '../../services/books'
 import LendingService from '../../services/lendings'
 
@@ -12,8 +11,6 @@ import {
   Book,
   BookFormValues,
 } from '../../types'
-import { addNotification } from './notification'
-import { response } from 'express'
 
 export const getAllBooks = ( books: Book[]): BookActions => {
   return {
@@ -51,64 +48,40 @@ export const createBook = (book: Book): BookActions => {
     },
   }
 }
-// this service is using fetch and dispatch happening here
+
+/*Here in these async functions I am passing dispatch from redux to
+ the services of book to dispatch necessary actions to the store
+ this way these actions will look more clean as I will have more actions
+ added here in the future*/
+
 export function unborrowBookThunk(book: Book){
   return (dispatch: Dispatch) => {
-    return LendingService.unBorrow(book)
-    .then(resp => resp.json())
-    .then(book => {
-      console.log(book)
-      dispatch(borrowUnborrowBook(book))
-    })
+    return LendingService.unBorrow(book,dispatch)
   }
 }
 
-// this service is using axios and dispatch is sent from the service
 export function borrowBookThunk(book: Book){
   return async (dispatch: Dispatch) => {
     return LendingService.borrow(book, dispatch)
   }
 }
 
-//this service is using axios and dispatch is happening here
 export function removeBookThunk(book: Book){
   return async (dispatch: Dispatch) => {
-      try {
-      const response = await BookService.deleteEntry(book._id)
-      dispatch(removeBook(book))
-      dispatch(addNotification({ errorMessage: '', successMessage: `You just deleted ${book.title}` }))
-    }
-    catch (error) {
-      dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
-    }
+      return BookService.deleteThis(book, dispatch)
   }
 }
 
-
-
-//Redux thunk for adding book use create(book)
+/*here BookFromValues is a type of book but it do not require _id
+because that is created by the database which we will use to delete book*/
 export function addBookThunk(book: BookFormValues){
   return async (dispatch: Dispatch) => {
-      try {
-      const response = await BookService.create(book)
-      dispatch(createBook(response.data))
-      dispatch(addNotification({ errorMessage: '', successMessage: `You just added ${response.data.title}` }))
-    }
-    catch (error) {
-      dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
-    }
+      return BookService.create(book, dispatch)
   }
 }
 
-// Async action processed by redux-thunk middleware
 export function fetchBooksThunk() {
   return async (dispatch: Dispatch) => {
-    try {
-      const response = await BookService.getAll()
-      dispatch(getAllBooks(response.data))
-    }
-    catch (error) {
-      dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
-    }
+    return BookService.getAll(dispatch)
   }
 }

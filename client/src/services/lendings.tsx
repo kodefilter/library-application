@@ -16,22 +16,15 @@ const borrow = async (book: any, dispatch: Dispatch) => {
   } 
 }
 
-const unBorrow = (book: any) => {
-  const obj = {
-    'userId' : Cookies.getJSON('current-user')._id,
-    'bookId' : book._id
+const unBorrow = async (book: any, dispatch: Dispatch) => {
+  try {
+    const response = await axios({ method: 'PUT', url: `${baseUrl}/unborrow`, data: { 'userId': Cookies.getJSON('current-user')._id, 'bookId': book._id } })
+    dispatch(borrowUnborrowBook(response.data))
   }
-  const blob = new Blob([JSON.stringify(obj, null, 2)], {type : 'application/json'})
-  const options: RequestInit = {
-    method: "PUT",
-    body: blob,
-    mode: "cors",
-    cache: "default",
-  }
-  return fetch(`${baseUrl}/unborrow`,options)
+  catch (error) {
+    dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
+  } 
 }
 
-//deleting, editing and getting single observation 
-//was not on the requirement but can be implemented very easily
 
 export default { borrow, unBorrow }

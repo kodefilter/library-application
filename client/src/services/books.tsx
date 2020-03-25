@@ -1,25 +1,45 @@
-import { BookFormValues } from '../types'
+import { BookFormValues, Book } from '../types'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import { response } from 'express'
+import { createBook, addNotification, removeBook, getAllBooks } from '../redux/actions'
+import { Dispatch } from 'redux'
 const baseUrl = 'http://localhost:3001/api/v1/books'
 
 let myHeaders = new Headers()
 myHeaders.append('x-auth-token', Cookies.get('access-cookie') as string)
 
-const getAll = () => {
-    return axios({ method: 'get', url: baseUrl, headers: myHeaders })
+const getAll = async (dispatch: Dispatch) => {
+    try {
+        const response = await axios({ method: 'GET', url: baseUrl, headers: myHeaders })
+        dispatch(getAllBooks(response.data))
+      }
+      catch (error) {
+        dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
+      }
 }
 
-const create = (newBook: BookFormValues) => {
-    return axios({ method: 'post', url: baseUrl, data: newBook, headers: myHeaders })
+const create = async (book: BookFormValues, dispatch: Dispatch) => {
+    try {
+      const response = await axios({ method: 'POST', url: baseUrl, data: book })
+      dispatch(createBook(response.data))
+    }
+    catch (error) {
+      dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
+    } 
 }
 
-const deleteEntry = (bookId: string) => {
-    return axios({ method: 'delete', url: `${baseUrl}/${bookId}`,headers: myHeaders})
+const deleteThis = async (book: Book, dispatch: Dispatch) => {
+    try {
+      const response = await axios({ method: 'DELETE', url: `${baseUrl}/${book._id}`, data: book })
+      dispatch(removeBook(book))
+      dispatch(addNotification({ errorMessage: '', successMessage: `You just deleted ${book.title}`})) 
+    }
+    catch (error) {
+      dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
+    } 
 }
 
 
 
-
-export default { getAll, create, deleteEntry }
+export default { getAll, create, deleteThis }
