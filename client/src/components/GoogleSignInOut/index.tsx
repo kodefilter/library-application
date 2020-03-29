@@ -1,24 +1,20 @@
 import React from 'react'
 import { GoogleLogin } from 'react-google-login'
 import AuthenticationsService from '../../services/authentications'
+import { useDispatch } from 'react-redux'
+import { signInUserThunk } from '../../redux/actions/user'
 
 export default function GoogleSignInOut() {
+
+  const dispatch = useDispatch()
   
   const responseGoogle = (response :any) => {
 
     // first we need to dispatch a thunk action
     // create a redux thunk action for sign in
     // create a user service for that and also refactor or remove authentication service
+    dispatch(signInUserThunk(response))
     
-
-    const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken},null,2)], { type: 'application/json' }) 
-    const options: RequestInit = {
-      method: "POST",
-      body: tokenBlob,
-      mode: "cors",
-      cache: "default",
-    }
-    AuthenticationsService.signIn(options)
   }
 
   return (

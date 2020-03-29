@@ -17,6 +17,9 @@ export const GET_ALL_AUTHORS = 'GET_ALL_AUTHORS'
 export const CREATE_AUTHOR = 'CREATE_AUTHOR'
 export const REMOVE_AUTHOR = 'REMOVE_AUTHOR'
 
+//ACTION TYPES FOR USER
+export const ADD_CURRENT_USER = 'ADD_CURRENT_USER'
+
 
 // Enum
 export enum DialogType {
@@ -33,6 +36,12 @@ export type Product = {
 
 //An Author
 export type Author = {
+  firstName : string
+  lastName : string
+}
+
+export type User = {
+  cart: string[]
   firstName : string
   lastName : string
 }
@@ -103,7 +112,18 @@ export type addNotificationAction = {
   }
 }
 
+export type addCurrentUserAction = {
+  type: typeof ADD_CURRENT_USER
+  payload: {
+    user : User
+  }
+}
 
+
+
+
+
+export type UserActions = addCurrentUserAction
 
 export type NotificationActions = addNotificationAction
 
@@ -153,6 +173,12 @@ export type NotificationState = {
   message : Message
 }
 
+
+export type UserState = {
+  users : User[]
+  currentUser : User
+}
+
 // Using dynamic keys from an enum
 export type UiState = {
   dialogOpen: {
@@ -165,5 +191,7 @@ export type AppState = {
   ui: UiState
   book: BookState
   author: AuthorState
+  user: UserState
   notification : NotificationState
 }
+

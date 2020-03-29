@@ -19,6 +19,14 @@ const initState: AppState = {
   author: {
     authors: []
   },
+  user: {
+    users: [],
+    currentUser : {
+      cart : [],
+      firstName : '',
+      lastName : '',
+    }
+  },
   notification: {
     message: {
       errorMessage: '',
