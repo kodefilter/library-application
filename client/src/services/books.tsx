@@ -1,17 +1,21 @@
 import { BookFormValues, Book } from '../types'
 import Cookies from 'js-cookie'
 import axios from 'axios'
-import { response } from 'express'
 import { createBook, addNotification, removeBook, getAllBooks } from '../redux/actions'
 import { Dispatch } from 'redux'
 const baseUrl = 'http://localhost:3001/api/v1/books'
 
-let myHeaders = new Headers()
-myHeaders.append('x-auth-token', Cookies.get('access-cookie') as string)
+
+const token = Cookies.get('access-cookie') as string
 
 const getAll = async (dispatch: Dispatch) => {
     try {
-        const response = await axios({ method: 'GET', url: baseUrl, headers: myHeaders })
+        const response = await axios.get(
+          baseUrl,
+          { 
+            headers: { 'x-auth-token' : token }
+          }
+          )
         dispatch(getAllBooks(response.data))
       }
       catch (error) {
