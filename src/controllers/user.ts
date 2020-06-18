@@ -16,14 +16,14 @@ export const createUser = async (
   next: NextFunction
 ) => {
   try {
-    const body = req.body
+    const {firstName, lastName, email } = req.body
 
     const user = new User({
-      firstName: body.firstName,
-      lastName: body.lastName,
-      email: body.email,
+      firstName,
+      lastName,
+      email,
     })
-
+    
     UserService.create(user)
     res.json(user)
   } catch (error) {
