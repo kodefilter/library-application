@@ -26,7 +26,7 @@ import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
 
 // this is very important to put here in app.ts
-const passportConfig = require('./config/passport')
+import './config/passport'
 
 const app = express()
 const mongoUrl = MONGODB_URI
