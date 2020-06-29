@@ -1,6 +1,5 @@
 import React from 'react'
 import { GoogleLogin } from 'react-google-login'
-import AuthenticationsService from '../../services/authentications'
 import { useDispatch } from 'react-redux'
 import { signInUserThunk } from '../../redux/actions/user'
 

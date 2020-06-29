@@ -19,7 +19,7 @@ function findById(bookId: string): Promise<BookDocument> {
     })
 }
 
-function findAll(pageOptions :PageOptions): Promise<BookDocument[]> {
+function findAll(pageOptions:PageOptions): Promise<BookDocument[]> {
   return Book.find()
     .populate('authors', { firstName: 1, lastName: 1 })
     .sort({ title: 1})
@@ -29,7 +29,7 @@ function findAll(pageOptions :PageOptions): Promise<BookDocument[]> {
 }
 
 function borrow(
-  bookId :string,
+  bookId: string,
 ): Promise<BookDocument | null> {
   return Book.findById(bookId).exec()
   .then(book => {
@@ -46,7 +46,7 @@ function borrow(
 }
 
 function unborrow(
-  bookId :string,
+  bookId: string,
 ): Promise<BookDocument | null> {
   return Book.findById(bookId).exec()
   .then(book => {

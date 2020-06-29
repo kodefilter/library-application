@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,8 +6,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
 
 import BookService from '../../services/books'
+import AuthorService from '../../services/authors'
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState, Book, BookFormValues } from '../../types';
 import {addNotification, addBookThunk } from '../../redux/actions';
@@ -17,12 +20,24 @@ export default function BookForm() {
   const [newTitle, setNewTitle] = useState("") 
   const [newDescription, setNewDescription] = useState("")
   const [newPublisher, setNewPublisher] = useState("")
+  const [newAuthorList, setNewAuthorList] = useState<AuthorType[]>([])
 
   const items = useSelector((state: AppState) => state.book.items)
 
   const dispatch = useDispatch()
 
-
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/v1/authors')
+        const data = await response.json()
+        setNewAuthorList(data)
+      } catch (error) {
+        throw error
+      }
+    }
+    fetchData()
+  }, [])
 
 
   //input fields of book which are required, more can be added here
@@ -142,6 +157,13 @@ export default function BookForm() {
             shrink: true,
           }}
           variant="outlined"
+        />
+        <Autocomplete
+          id="combo-box-demo"
+          options={newAuthorList as AuthorType[]}
+          getOptionLabel={(author: AuthorType) => author.firstName}
+          style={{ width: 300 }}
+          renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
         />        
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -156,4 +178,9 @@ export default function BookForm() {
       </Dialog>
     </div>
   );
+
+  interface AuthorType {
+    firstName: string;
+    lastName: string;
+  }
 }
