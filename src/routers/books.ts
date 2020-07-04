@@ -9,7 +9,6 @@ import {
   borrowBook,
   unborrowBook,
 } from '../controllers/book'
-import passport from 'passport'
 // Authentication Service
 import AuthenticationService from '../services/authentication'
 
