@@ -4,27 +4,25 @@ import { useDispatch } from 'react-redux'
 import { signInUserThunk } from '../../redux/actions/user'
 
 export default function GoogleSignInOut() {
-
   const dispatch = useDispatch()
-  
-  const responseGoogle = (response :any) => {
 
-    // first we need to dispatch a thunk action
-    // create a redux thunk action for sign in
-    // create a user service for that and also refactor or remove authentication service
+  const login = (response: any) => {
     dispatch(signInUserThunk(response))
-    
+  }
+
+  const loginFailure = () => {
+    alert('Login Failed')
   }
 
   return (
     <>
-    <GoogleLogin
-    clientId="659114991649-egsmdi2p7p7fu360cpq4i7evom0beq6c.apps.googleusercontent.com"
-    buttonText="Login"
-    onSuccess={responseGoogle}
-    onFailure={responseGoogle}
-    cookiePolicy={'single_host_origin'}
-    />
-    </> 
+      <GoogleLogin
+        clientId="659114991649-egsmdi2p7p7fu360cpq4i7evom0beq6c.apps.googleusercontent.com"
+        buttonText="Login"
+        onSuccess={login}
+        onFailure={loginFailure}
+        cookiePolicy={'single_host_origin'}
+      />
+    </>
   )
 }
