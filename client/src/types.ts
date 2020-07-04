@@ -19,7 +19,7 @@ export const REMOVE_AUTHOR = 'REMOVE_AUTHOR'
 
 //ACTION TYPES FOR USER
 export const ADD_CURRENT_USER = 'ADD_CURRENT_USER'
-
+export const REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER'
 
 // Enum
 export enum DialogType {
@@ -36,18 +36,17 @@ export type Product = {
 
 //An Author
 export type Author = {
-  firstName : string
-  lastName : string
+  firstName: string
+  lastName: string
 }
 
 export type User = {
   cart: string[]
-  firstName : string
-  lastName : string
+  firstName: string
+  lastName: string
 }
 
-export type BookFormValues = Omit<Book, "_id">
-
+export type BookFormValues = Omit<Book, '_id'>
 
 //Book
 export type Book = {
@@ -55,13 +54,13 @@ export type Book = {
   title: string
   description: string
   publisher: string
-  isAvailable: boolean  
+  isAvailable: boolean
 }
 
 export type getAllAuthorsAction = {
-  type : typeof GET_ALL_AUTHORS
+  type: typeof GET_ALL_AUTHORS
   payload: {
-    authors : Author[]
+    authors: Author[]
   }
 }
 
@@ -73,8 +72,8 @@ export type createAuthorAction = {
 }
 
 export type Message = {
-  errorMessage : string,
-  successMessage : string
+  errorMessage: string
+  successMessage: string
 }
 
 export type getAllBooksAction = {
@@ -108,26 +107,26 @@ export type borrowUnborrowBookAction = {
 export type addNotificationAction = {
   type: typeof ADD_NOTIFICATION
   payload: {
-    message : Message
+    message: Message
   }
 }
 
 export type addCurrentUserAction = {
   type: typeof ADD_CURRENT_USER
   payload: {
-    user : User
+    user: User
   }
 }
-
-
-
-
 
 export type UserActions = addCurrentUserAction
 
 export type NotificationActions = addNotificationAction
 
-export type BookActions = getAllBooksAction | createBookAction | borrowUnborrowBookAction | removeBookAction
+export type BookActions =
+  | getAllBooksAction
+  | createBookAction
+  | borrowUnborrowBookAction
+  | removeBookAction
 
 export type AuthorActions = getAllAuthorsAction | createAuthorAction
 
@@ -170,13 +169,12 @@ export type AuthorState = {
 }
 
 export type NotificationState = {
-  message : Message
+  message: Message
 }
 
-
 export type UserState = {
-  users : User[]
-  currentUser : User
+  users: User[]
+  currentUser: User
 }
 
 // Using dynamic keys from an enum
@@ -192,6 +190,5 @@ export type AppState = {
   book: BookState
   author: AuthorState
   user: UserState
-  notification : NotificationState
+  notification: NotificationState
 }
-
