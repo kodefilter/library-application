@@ -7,11 +7,11 @@ import { AppState } from '../../types'
 export default function GoogleSignInOut() {
   const dispatch = useDispatch()
 
-  const currentUser = useSelector((state: AppState) => state.user.currentUser)
-
   const login = (response: any) => {
     dispatch(signInUserThunk(response))
   }
+
+  const currentUser = useSelector((state: AppState) => state.user.currentUser)
 
   const logout = () => {
     // dispatch(signOutUserThunk()) need to implement this thunk
