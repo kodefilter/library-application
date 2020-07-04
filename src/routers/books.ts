@@ -16,7 +16,7 @@ import AuthenticationService from '../services/authentication'
 const router = express.Router()
 
 // Every path we define here will get /api/v1/books prefix
-router.put('/borrow',borrowBook) //user needs to go to specifc book to borrow and unborrow
+router.put('/borrow',borrowBook)
 router.put('/unborrow', unborrowBook)
 router.get('/', AuthenticationService.checkAndVerifyToken, findAll)
 router.get('/:bookId', findById)
