@@ -89,8 +89,8 @@ function update(
     })
 }
 
-function deleteBook(movieId: string): Promise<BookDocument | null> {
-  return Book.findByIdAndDelete(movieId).exec()
+function deleteBook(bookId: string): Promise<BookDocument | null> {
+  return Book.findByIdAndDelete(bookId).exec()
 }
 
 export default {
