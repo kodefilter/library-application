@@ -118,6 +118,11 @@ export type addCurrentUserAction = {
   }
 }
 
+export type removeCurrentUserAction = {
+  type: typeof REMOVE_CURRENT_USER
+  payload: {}
+}
+
 export type UserActions = addCurrentUserAction
 
 export type NotificationActions = addNotificationAction
