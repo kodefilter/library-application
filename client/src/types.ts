@@ -123,7 +123,7 @@ export type removeCurrentUserAction = {
   payload: {}
 }
 
-export type UserActions = addCurrentUserAction
+export type UserActions = addCurrentUserAction | removeCurrentUserAction
 
 export type NotificationActions = addNotificationAction
 
