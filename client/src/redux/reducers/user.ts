@@ -1,4 +1,9 @@
-import { UserState, UserActions, ADD_CURRENT_USER } from '../../types'
+import {
+  UserState,
+  UserActions,
+  ADD_CURRENT_USER,
+  REMOVE_CURRENT_USER,
+} from '../../types'
 
 export default function user(
   state: UserState = {
@@ -11,6 +16,10 @@ export default function user(
   case ADD_CURRENT_USER: {
     const { user } = action.payload
     return { ...state, users: [...state.users, user], currentUser: user }
+  }
+
+  case REMOVE_CURRENT_USER: {
+    return state
   }
 
   default:

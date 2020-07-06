@@ -1,8 +1,9 @@
 import React from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import { useDispatch, useSelector } from 'react-redux'
-import { signInUserThunk } from '../../redux/actions/user'
+import { signInUserThunk, removeCurrentUser } from '../../redux/actions/user'
 import { AppState } from '../../types'
+import Cookies from 'js-cookie'
 
 export default function GoogleSignInOut() {
   const dispatch = useDispatch()
@@ -12,9 +13,12 @@ export default function GoogleSignInOut() {
   }
 
   const currentUser = useSelector((state: AppState) => state.user.currentUser)
+  console.log(currentUser, 'Current User')
 
   const logout = () => {
-    // dispatch(signOutUserThunk()) need to implement this thunk
+    dispatch(removeCurrentUser)
+    Cookies.remove('current-user')
+    Cookies.remove('access-cookie')
   }
 
   const loginFailure = () => {

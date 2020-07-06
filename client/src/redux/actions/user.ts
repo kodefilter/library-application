@@ -1,9 +1,11 @@
 import { Dispatch } from 'redux'
 import UserService from '../../services/users'
-import LendingService from '../../services/lendings'
 
 import {
-  ADD_CURRENT_USER, User, UserActions,
+  ADD_CURRENT_USER,
+  User,
+  UserActions,
+  REMOVE_CURRENT_USER,
 } from '../../types'
 
 export const addCurrentUser = (user: User): UserActions => {
@@ -15,9 +17,15 @@ export const addCurrentUser = (user: User): UserActions => {
   }
 }
 
+export const removeCurrentUser = () => {
+  return {
+    type: REMOVE_CURRENT_USER,
+    payload: {},
+  }
+}
 
-export function signInUserThunk(response: any){
+export function signInUserThunk(response: any) {
   return async (dispatch: Dispatch) => {
-      return UserService.signIn(response, dispatch)
+    return UserService.signIn(response, dispatch)
   }
 }
