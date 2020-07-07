@@ -30,4 +30,3 @@ export default function Landing() {
     </>
   )
 }
-// need to put login button here and on success history push to home screen
