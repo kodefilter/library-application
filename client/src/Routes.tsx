@@ -2,13 +2,13 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import Home from './pages/Home'
+import Landing from './pages/Landing'
 
 const Routes = () => (
   <Switch>
-    <Route exact path="/" component={Home} />
-    
+    <Route exact path="/" component={Landing} />
+    <Route exact path="/home" component={Home} />
   </Switch>
 )
-/*<Route exact path="/loginout/" component={GoogleLogInOut} />*/ // this route is now moved as a component on the application bar
 
 export default Routes
