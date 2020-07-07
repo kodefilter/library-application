@@ -4,7 +4,6 @@ import { NextFunction, Request, Response } from 'express'
 function checkAndVerifyToken (req: Request, res: Response, next: NextFunction){
 
     const token  = req.headers['x-auth-token']
-    console.log(token)
 
     if(typeof token !==  'undefined') {
         jwt.verify(token,process.env['JWT_SECRET'] as string, (err: Error, authData: any) => {
