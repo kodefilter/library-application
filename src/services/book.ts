@@ -1,6 +1,5 @@
 import Book, { BookDocument } from '../models/Book'
 import { PageOptions } from 'library'
-import Author, { AuthorDocument } from '../models/Author'
 
 
 
@@ -19,7 +18,7 @@ function findById(bookId: string): Promise<BookDocument> {
     })
 }
 
-function findAll(pageOptions:PageOptions): Promise<BookDocument[]> {
+function findAll(pageOptions: PageOptions): Promise<BookDocument[]> {
   return Book.find()
     .populate('authors', { firstName: 1, lastName: 1 })
     .sort({ title: 1})
