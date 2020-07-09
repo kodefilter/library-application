@@ -55,6 +55,7 @@ export type Book = {
   description: string
   publisher: string
   isAvailable: boolean
+  authors: string[]
 }
 
 export type getAllAuthorsAction = {
