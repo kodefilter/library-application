@@ -222,7 +222,6 @@ export default function BookForm() {
               variant="outlined"
             />
             <InputLabel id="demo-mutiple-chip-label">Chip</InputLabel>
-            <InputLabel id="demo-mutiple-chip-label">Chip</InputLabel>
             <Select
               labelId="demo-mutiple-chip-label"
               id="demo-mutiple-chip"
