@@ -6,15 +6,16 @@ import {
   CREATE_AUTHOR,
   AuthorActions,
   Author,
+  REMOVE_AUTHOR,
 } from '../../types'
 import { addNotification } from './notification'
 
-export const getAllAuthors = ( authors: Author[]): AuthorActions => {
+export const getAllAuthors = (authors: Author[]): AuthorActions => {
   return {
     type: GET_ALL_AUTHORS,
     payload: {
-      authors
-    }
+      authors,
+    },
   }
 }
 
@@ -27,16 +28,34 @@ export const createAuthor = (author: Author): AuthorActions => {
   }
 }
 
+export const removeAuthor = (author: Author): AuthorActions => {
+  return {
+    type: REMOVE_AUTHOR,
+    payload: {
+      author,
+    },
+  }
+}
+
 //Redux thunk for adding author use create(author) usinfg fetch in service
-export function addAuthorThunk(author: Author){
+export function addAuthorThunk(author: Author) {
   return async (dispatch: Dispatch) => {
-      try {
+    try {
       const response = await AuthorService.create(author)
       dispatch(createAuthor(response.data))
-      dispatch(addNotification({ errorMessage: '', successMessage: `You just added ${response.data.firstName}` }))
-    }
-    catch (error) {
-      dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
+      dispatch(
+        addNotification({
+          errorMessage: '',
+          successMessage: `You just added ${response.data.firstName}`,
+        })
+      )
+    } catch (error) {
+      dispatch(
+        addNotification({
+          errorMessage: `This Error happened ${error}`,
+          successMessage: '',
+        })
+      )
     }
   }
 }
@@ -47,9 +66,13 @@ export function fetchAuthorsThunk() {
     try {
       const response = await AuthorService.getAll()
       dispatch(getAllAuthors(response.data))
-    }
-    catch (error) {
-      dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
+    } catch (error) {
+      dispatch(
+        addNotification({
+          errorMessage: `This Error happened ${error}`,
+          successMessage: '',
+        })
+      )
     }
   }
 }
