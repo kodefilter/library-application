@@ -33,9 +33,10 @@ export type Product = {
   name: string
   price: number
 }
-//whasfdffd
+
 //An Author
 export type Author = {
+  _id: string
   firstName: string
   lastName: string
 }
@@ -46,6 +47,7 @@ export type User = {
   lastName: string
 }
 
+export type AuthorFormValues = Omit<Author, '_id'>
 export type BookFormValues = Omit<Book, '_id'>
 
 //Book
