@@ -74,6 +74,13 @@ export type createAuthorAction = {
   }
 }
 
+export type removeAuthorAction = {
+  type: typeof REMOVE_AUTHOR
+  payload: {
+    author: Author
+  }
+}
+
 export type Message = {
   errorMessage: string
   successMessage: string
@@ -136,7 +143,10 @@ export type BookActions =
   | borrowUnborrowBookAction
   | removeBookAction
 
-export type AuthorActions = getAllAuthorsAction | createAuthorAction
+export type AuthorActions =
+  | getAllAuthorsAction
+  | createAuthorAction
+  | removeAuthorAction
 
 export type AddProductAction = {
   type: typeof ADD_PRODUCT
