@@ -2,7 +2,7 @@ import { Author } from '../types'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import { Dispatch } from 'redux'
-import { getAllAuthors, addNotification } from '../redux/actions'
+import { getAllAuthors, addNotification, removeAuthor } from '../redux/actions'
 const baseUrl = 'http://localhost:3001/api/v1/authors'
 
 let myHeaders = new Headers()
@@ -33,6 +33,28 @@ const create = (newAuthor: Author) => {
   })
 }
 
-// delete request is going to delete entry in the database and then returns 204 status
+const deleteThis = async (author: Author, dispatch: Dispatch) => {
+  try {
+    await axios({
+      method: 'DELETE',
+      url: `${baseUrl}/${author._id}`,
+      data: author,
+    })
+    dispatch(removeAuthor(author))
+    dispatch(
+      addNotification({
+        errorMessage: '',
+        successMessage: `You just deleted ${author.firstName}`,
+      })
+    )
+  } catch (error) {
+    dispatch(
+      addNotification({
+        errorMessage: `This Error happened ${error}`,
+        successMessage: '',
+      })
+    )
+  }
+}
 
-export default { getAll, create }
+export default { getAll, create, deleteThis }
