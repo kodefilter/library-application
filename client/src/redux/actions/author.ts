@@ -37,6 +37,12 @@ export const removeAuthor = (author: Author): AuthorActions => {
   }
 }
 
+export function fetchAuthorsThunk() {
+  return async (dispatch: Dispatch) => {
+    return AuthorService.getAll(dispatch)
+  }
+}
+
 //Redux thunk for adding author use create(author) usinfg fetch in service
 export function addAuthorThunk(author: Author) {
   return async (dispatch: Dispatch) => {
@@ -60,8 +66,8 @@ export function addAuthorThunk(author: Author) {
   }
 }
 
-export function fetchAuthorsThunk() {
+export function removeAuthorThunk(author: Author) {
   return async (dispatch: Dispatch) => {
-    return AuthorService.getAll(dispatch)
+    return AuthorService.deleteThis(author, dispatch)
   }
 }
