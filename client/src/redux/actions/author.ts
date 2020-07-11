@@ -60,19 +60,8 @@ export function addAuthorThunk(author: Author) {
   }
 }
 
-// Async action processed by redux-thunk middleware
 export function fetchAuthorsThunk() {
   return async (dispatch: Dispatch) => {
-    try {
-      const response = await AuthorService.getAll()
-      dispatch(getAllAuthors(response.data))
-    } catch (error) {
-      dispatch(
-        addNotification({
-          errorMessage: `This Error happened ${error}`,
-          successMessage: '',
-        })
-      )
-    }
+    return AuthorService.getAll(dispatch)
   }
 }
