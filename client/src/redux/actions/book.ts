@@ -52,22 +52,9 @@ export const borrowUnborrowBook = (book: Book): BookActions => {
  the services of book to dispatch necessary actions to the store
  this way these actions will look more clean as I will have more actions
  added here in the future*/
-
-export function unborrowBookThunk(book: Book) {
-  return (dispatch: Dispatch) => {
-    return LendingService.unBorrow(book, dispatch)
-  }
-}
-
-export function borrowBookThunk(book: Book) {
+export function fetchBooksThunk() {
   return async (dispatch: Dispatch) => {
-    return LendingService.borrow(book, dispatch)
-  }
-}
-
-export function removeBookThunk(book: Book) {
-  return async (dispatch: Dispatch) => {
-    return BookService.deleteThis(book, dispatch)
+    return BookService.getAll(dispatch)
   }
 }
 
@@ -79,8 +66,20 @@ export function addBookThunk(book: BookFormValues) {
   }
 }
 
-export function fetchBooksThunk() {
+export function removeBookThunk(book: Book) {
   return async (dispatch: Dispatch) => {
-    return BookService.getAll(dispatch)
+    return BookService.deleteThis(book, dispatch)
+  }
+}
+
+export function borrowBookThunk(book: Book) {
+  return async (dispatch: Dispatch) => {
+    return LendingService.borrow(book, dispatch)
+  }
+}
+
+export function unborrowBookThunk(book: Book) {
+  return (dispatch: Dispatch) => {
+    return LendingService.unBorrow(book, dispatch)
   }
 }
