@@ -7,8 +7,8 @@ import {
   AuthorActions,
   Author,
   REMOVE_AUTHOR,
+  AuthorFormValues,
 } from '../../types'
-import { addNotification } from './notification'
 
 export const getAllAuthors = (authors: Author[]): AuthorActions => {
   return {
@@ -44,25 +44,9 @@ export function fetchAuthorsThunk() {
 }
 
 //Redux thunk for adding author use create(author) usinfg fetch in service
-export function addAuthorThunk(author: Author) {
+export function addAuthorThunk(author: AuthorFormValues) {
   return async (dispatch: Dispatch) => {
-    try {
-      const response = await AuthorService.create(author)
-      dispatch(createAuthor(response.data))
-      dispatch(
-        addNotification({
-          errorMessage: '',
-          successMessage: `You just added ${response.data.firstName}`,
-        })
-      )
-    } catch (error) {
-      dispatch(
-        addNotification({
-          errorMessage: `This Error happened ${error}`,
-          successMessage: '',
-        })
-      )
-    }
+    return AuthorService.create(author, dispatch)
   }
 }
 
