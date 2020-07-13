@@ -4,23 +4,21 @@ import ApplicationBar from '../components/ApplicationBar'
 import BookGridList from '../components/BookGridList'
 import NotificationBar from '../components/NotificationBar'
 import { fetchBooksThunk } from '../redux/actions/book'
-
+import AuthorTableList from '../components/AuthorTableList'
 
 export default function Home() {
-
   const dispatch = useDispatch()
 
-
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchBooksThunk())
-  },[])
-  
+  }, [dispatch])
+
   return (
     <>
-    <ApplicationBar />
-    <NotificationBar />
-    <BookGridList />
+      <ApplicationBar />
+      <NotificationBar />
+      <AuthorTableList />
+      <BookGridList />
     </>
-    
   )
 }
