@@ -24,7 +24,7 @@ export default function AuthorTableList() {
 
   useEffect(() => {
     dispatch(fetchAuthorsThunk())
-  })
+  }, [dispatch])
 
   const authors = useSelector((state: AppState) => state.author.authors)
 
