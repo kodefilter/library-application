@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import { GoogleLogout } from 'react-google-login'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from '../../types'
 import { removeCurrentUser } from '../../redux/actions/user'
@@ -62,6 +62,11 @@ export default function ApplicationBar() {
           <Typography variant="h6" className={classes.title}>
             Integrify Library
           </Typography>
+          <Link to={`/authors`}>
+            <Typography variant="h6" className={classes.title}>
+              Authors
+            </Typography>
+          </Link>
           <GoogleLogout
             clientId="659114991649-egsmdi2p7p7fu360cpq4i7evom0beq6c.apps.googleusercontent.com"
             buttonText="Logout"
