@@ -30,7 +30,7 @@ export default function AuthorTableList() {
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
+      <Table className={classes.table} aria-label="authors table">
         <TableHead>
           <TableRow>
             <TableCell>FirstName</TableCell>
