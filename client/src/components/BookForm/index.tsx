@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { AppState, BookFormValues } from '../../types'
-import { addBookThunk } from '../../redux/actions'
+import { addBookThunk, fetchAuthorsThunk } from '../../redux/actions'
 import {
   InputLabel,
   Select,
@@ -67,27 +67,19 @@ export default function BookForm() {
   const [newTitle, setNewTitle] = useState('')
   const [newDescription, setNewDescription] = useState('')
   const [newPublisher, setNewPublisher] = useState('')
-  const [newAuthorList, setNewAuthorList] = useState<AuthorType[]>([])
   const [authorIdList, setAuthorIdList] = useState<string[]>([])
   const classes = useStyles()
   const theme = useTheme()
 
-  const items = useSelector((state: AppState) => state.book.items)
-
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/api/v1/authors')
-        const data = await response.json()
-        setNewAuthorList(data)
-      } catch (error) {
-        throw error
-      }
-    }
-    fetchData()
-  }, [])
+    dispatch(fetchAuthorsThunk())
+  }, [dispatch])
+
+  const items = useSelector((state: AppState) => state.book.items)
+
+  const authorList = useSelector((state: AppState) => state.author.authors)
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setAuthorIdList(event.target.value as string[])
@@ -238,7 +230,7 @@ export default function BookForm() {
               )}
               MenuProps={MenuProps}
             >
-              {newAuthorList.map(author => (
+              {authorList.map(author => (
                 <MenuItem
                   key={author.firstName}
                   value={author._id}
