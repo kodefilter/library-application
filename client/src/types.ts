@@ -108,6 +108,13 @@ export type removeBookAction = {
   }
 }
 
+export type updateBookAction = {
+  type: typeof UPDATE_BOOK
+  payload: {
+    book: Book
+  }
+}
+
 export type borrowUnborrowBookAction = {
   type: typeof BORROW_UNBORROW_BOOK
   payload: {
