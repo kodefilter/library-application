@@ -44,6 +44,17 @@ const deleteThis = async (book: Book, dispatch: Dispatch) => {
     } 
 }
 
+const updateThis = async (book: Book, dispatch: Dispatch) => {
+  try {
+    const response = await axios({ method: 'PUT', url: `${baseUrl}/${book._id}`, data: book })
+    //dispatch(updateBook(book)) need to implement this in redux
+    dispatch(addNotification({ errorMessage: '', successMessage: `You just deleted ${book.title}`}))  
+  }
+  catch (error) {
+    dispatch(addNotification({ errorMessage: `This Error happened ${error}`, successMessage: '' }))
+  }
+
+}
 
 
-export default { getAll, create, deleteThis }
+export default { getAll, create, deleteThis, updateThis }
