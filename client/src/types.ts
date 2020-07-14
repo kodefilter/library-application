@@ -148,6 +148,7 @@ export type NotificationActions = addNotificationAction
 export type BookActions =
   | getAllBooksAction
   | createBookAction
+  | updateBookAction
   | borrowUnborrowBookAction
   | removeBookAction
 
