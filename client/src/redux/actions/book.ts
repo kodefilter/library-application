@@ -82,6 +82,12 @@ export function removeBookThunk(book: Book) {
   }
 }
 
+export function updateBookThunk(book: Book) {
+  return async (dispatch: Dispatch) => {
+    return BookService.updateThis(book, dispatch)
+  }
+}
+
 export function borrowBookThunk(book: Book) {
   return async (dispatch: Dispatch) => {
     return LendingService.borrow(book, dispatch)
