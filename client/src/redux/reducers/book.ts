@@ -34,7 +34,7 @@ export default function book(
     return {
       ...state,
       items: state.items.map(oldBook =>
-        oldBook._id === book._id ? oldBook : book
+        oldBook._id === book._id ? book : oldBook
       ),
     }
   }
