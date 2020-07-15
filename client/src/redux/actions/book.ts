@@ -40,7 +40,7 @@ export const removeBook = (book: Book): BookActions => {
   }
 }
 
-export const updatebBook = (book: Book): BookActions => {
+export const updateBook = (book: Book): BookActions => {
   return {
     type: UPDATE_BOOK,
     payload: {
