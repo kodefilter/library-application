@@ -10,6 +10,7 @@ import {
   BookActions,
   Book,
   BookFormValues,
+  UPDATE_BOOK,
 } from '../../types'
 
 export const getAllBooks = (books: Book[]): BookActions => {
@@ -33,6 +34,15 @@ export const createBook = (book: Book): BookActions => {
 export const removeBook = (book: Book): BookActions => {
   return {
     type: REMOVE_BOOK,
+    payload: {
+      book,
+    },
+  }
+}
+
+export const updatebBook = (book: Book): BookActions => {
+  return {
+    type: UPDATE_BOOK,
     payload: {
       book,
     },
