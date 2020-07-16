@@ -77,8 +77,6 @@ export default function BookForm() {
     dispatch(fetchAuthorsThunk())
   }, [dispatch])
 
-  const items = useSelector((state: AppState) => state.book.items)
-
   const authorList = useSelector((state: AppState) => state.author.authors)
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -115,46 +113,7 @@ export default function BookForm() {
       authors: authorIdList,
     }
 
-    const book = items.find(book => book.title === newTitle)
-    const changedBook = {
-      ...book,
-      title: newTitle,
-      description: newDescription,
-      publisher: newPublisher,
-    }
-
-    if (typeof book === 'undefined') {
-      dispatch(addBookThunk(newBook))
-      setNewTitle('')
-      setNewDescription('')
-      setNewPublisher('')
-    } else {
-      if (
-        window.confirm(
-          `${changedBook.title} is alreay in the library, replace the details with new one?`
-        )
-      ) {
-        /*  
-      BookService
-        .update(changedBook.title, changedBook)
-        .then( updatedPerson => {
-          setPersons(persons.map(person=> person.id !== changedPerson.id ? person : updatedPerson))
-          setNewName('')
-          setNewNumber('')
-
-          setSuccessMessage(`${changedPerson.name} has been updated with new number`)
-          setTimeout(()=>{
-            setSuccessMessage(null)
-          }, 5000)
-
-        })
-        .catch(error => {
-          setErrorMessage(error.response.data.error)
-        }
-
-        )*/
-      }
-    }
+    dispatch(addBookThunk(newBook))
   }
 
   return (
