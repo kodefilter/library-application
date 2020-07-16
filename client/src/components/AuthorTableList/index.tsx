@@ -9,7 +9,9 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppState } from '../../types'
-import { fetchAuthorsThunk } from '../../redux/actions'
+import { fetchAuthorsThunk, removeAuthorThunk } from '../../redux/actions'
+import { IconButton } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const useStyles = makeStyles({
   table: {
@@ -35,6 +37,7 @@ export default function AuthorTableList() {
           <TableRow>
             <TableCell>FirstName</TableCell>
             <TableCell>LastName</TableCell>
+            <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -44,6 +47,20 @@ export default function AuthorTableList() {
                 {author.firstName}
               </TableCell>
               <TableCell align="right">{author.lastName}</TableCell>
+              <TableCell>
+                <IconButton
+                  color="secondary"
+                  aria-label="delete book"
+                  component="span"
+                  onClick={() => {
+                    if (window.confirm(`Delete ${author.firstName}`)) {
+                      dispatch(removeAuthorThunk(author))
+                    }
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
