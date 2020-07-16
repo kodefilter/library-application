@@ -22,36 +22,44 @@ export const REMOVE_AUTHOR = 'REMOVE_AUTHOR'
 export const ADD_CURRENT_USER = 'ADD_CURRENT_USER'
 export const REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER'
 
+// Form value types
+export type AuthorFormValues = Omit<Author, '_id'>
+export type BookFormValues = Omit<Book, '_id'>
+
 // Enum
 export enum DialogType {
   SignIn = 'signIn',
   SignUp = 'signUp',
 }
 
-// A product
+// A Product
 export type Product = {
   id: string
   name: string
   price: number
 }
 
-//An Author
+// A Message
+export type Message = {
+  errorMessage: string
+  successMessage: string
+}
+
+// An Author
 export type Author = {
   _id: string
   firstName: string
   lastName: string
 }
 
+// A User
 export type User = {
   cart: string[]
   firstName: string
   lastName: string
 }
 
-export type AuthorFormValues = Omit<Author, '_id'>
-export type BookFormValues = Omit<Book, '_id'>
-
-//Book
+// A Book
 export type Book = {
   _id: string
   title: string
@@ -80,11 +88,6 @@ export type removeAuthorAction = {
   payload: {
     author: Author
   }
-}
-
-export type Message = {
-  errorMessage: string
-  successMessage: string
 }
 
 export type getAllBooksAction = {
@@ -122,13 +125,6 @@ export type borrowUnborrowBookAction = {
   }
 }
 
-export type addNotificationAction = {
-  type: typeof ADD_NOTIFICATION
-  payload: {
-    message: Message
-  }
-}
-
 export type addCurrentUserAction = {
   type: typeof ADD_CURRENT_USER
   payload: {
@@ -139,6 +135,13 @@ export type addCurrentUserAction = {
 export type removeCurrentUserAction = {
   type: typeof REMOVE_CURRENT_USER
   payload: {}
+}
+
+export type addNotificationAction = {
+  type: typeof ADD_NOTIFICATION
+  payload: {
+    message: Message
+  }
 }
 
 export type UserActions = addCurrentUserAction | removeCurrentUserAction
