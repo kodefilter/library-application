@@ -7,6 +7,7 @@ import {
   addNotification,
   removeAuthor,
   createAuthor,
+  updateAuthor,
 } from '../redux/actions'
 const baseUrl = 'http://localhost:3001/api/v1/authors'
 
@@ -67,4 +68,28 @@ const deleteThis = async (author: Author, dispatch: Dispatch) => {
   }
 }
 
-export default { getAll, create, deleteThis }
+const updateThis = async (author: Author, dispatch: Dispatch) => {
+  try {
+    const response = await axios({
+      method: 'PUT',
+      url: `${baseUrl}/${author._id}`,
+      data: author,
+    })
+    dispatch(updateAuthor(response.data))
+    dispatch(
+      addNotification({
+        errorMessage: '',
+        successMessage: `You just deleted ${author.firstName}`,
+      })
+    )
+  } catch (error) {
+    dispatch(
+      addNotification({
+        errorMessage: `This Error happened ${error}`,
+        successMessage: '',
+      })
+    )
+  }
+}
+
+export default { getAll, create, deleteThis, updateThis }
