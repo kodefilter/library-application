@@ -4,6 +4,7 @@ import {
   CREATE_AUTHOR,
   GET_ALL_AUTHORS,
   REMOVE_AUTHOR,
+  UPDATE_AUTHOR,
 } from '../../types'
 
 export default function author(
@@ -25,6 +26,16 @@ export default function author(
     const { author } = action.payload
     const newItems = state.authors.filter(item => item._id !== author._id)
     return { ...state, authors: newItems }
+  }
+
+  case UPDATE_AUTHOR: {
+    const { author } = action.payload
+    return {
+      ...state,
+      authors: state.authors.map(oldAuthor =>
+        oldAuthor._id === author._id ? author : oldAuthor
+      ),
+    }
   }
 
   default:
