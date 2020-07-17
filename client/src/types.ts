@@ -17,6 +17,7 @@ export const ADD_NOTIFICATION = 'ADD_NOTIFICATION'
 export const GET_ALL_AUTHORS = 'GET_ALL_AUTHORS'
 export const CREATE_AUTHOR = 'CREATE_AUTHOR'
 export const REMOVE_AUTHOR = 'REMOVE_AUTHOR'
+export const UPDATE_AUTHOR = 'UPDATE_AUTHOR'
 
 //ACTION TYPES FOR USER
 export const ADD_CURRENT_USER = 'ADD_CURRENT_USER'
@@ -85,6 +86,13 @@ export type createAuthorAction = {
 
 export type removeAuthorAction = {
   type: typeof REMOVE_AUTHOR
+  payload: {
+    author: Author
+  }
+}
+
+export type updateAuthorAction = {
+  type: typeof UPDATE_AUTHOR
   payload: {
     author: Author
   }
@@ -159,6 +167,7 @@ export type AuthorActions =
   | getAllAuthorsAction
   | createAuthorAction
   | removeAuthorAction
+  | updateAuthorAction
 
 export type AddProductAction = {
   type: typeof ADD_PRODUCT
