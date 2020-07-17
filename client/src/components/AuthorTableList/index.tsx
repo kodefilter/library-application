@@ -12,6 +12,7 @@ import { AppState } from '../../types'
 import { fetchAuthorsThunk, removeAuthorThunk } from '../../redux/actions'
 import { IconButton } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import EditAuthorForm from '../EditAuthorForm'
 
 const useStyles = makeStyles({
   table: {
@@ -60,6 +61,7 @@ export default function AuthorTableList() {
                 >
                   <DeleteIcon />
                 </IconButton>
+                <EditAuthorForm author={author} />
               </TableCell>
             </TableRow>
           ))}
