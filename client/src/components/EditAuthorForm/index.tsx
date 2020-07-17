@@ -15,7 +15,7 @@ export type EditAuthorProps = {
   author: Author
 }
 
-export default function EditAuthorForm({ author }: any) {
+export default function EditAuthorForm({ author }: EditAuthorProps) {
   const [open, setOpen] = useState(false)
   const [newFirstName, setNewFirstName] = useState(author.firstName)
   const [newLastName, setNewLastName] = useState(author.lastName)
