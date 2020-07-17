@@ -8,6 +8,7 @@ import {
   Author,
   REMOVE_AUTHOR,
   AuthorFormValues,
+  UPDATE_AUTHOR,
 } from '../../types'
 
 export const getAllAuthors = (authors: Author[]): AuthorActions => {
@@ -37,6 +38,15 @@ export const removeAuthor = (author: Author): AuthorActions => {
   }
 }
 
+export const updateAuthor = (author: Author): AuthorActions => {
+  return {
+    type: UPDATE_AUTHOR,
+    payload: {
+      author,
+    },
+  }
+}
+
 export function fetchAuthorsThunk() {
   return async (dispatch: Dispatch) => {
     return AuthorService.getAll(dispatch)
@@ -53,5 +63,11 @@ export function addAuthorThunk(author: AuthorFormValues) {
 export function removeAuthorThunk(author: Author) {
   return async (dispatch: Dispatch) => {
     return AuthorService.deleteThis(author, dispatch)
+  }
+}
+
+export function updateAuthorThunk(author: Author) {
+  return async (dispatch: Dispatch) => {
+    return AuthorService.updateThis(author, dispatch)
   }
 }
