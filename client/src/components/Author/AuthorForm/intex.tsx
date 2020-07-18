@@ -8,17 +8,13 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
 import { useDispatch } from 'react-redux'
-import { updateAuthorThunk } from '../../redux/actions'
-import { Author } from '../../types'
+import { AuthorFormValues } from '../../../types'
+import { addAuthorThunk } from '../../../redux/actions/author'
 
-export type EditAuthorProps = {
-  author: Author
-}
-
-export default function EditAuthorForm({ author }: EditAuthorProps) {
+export default function AuthorForm() {
   const [open, setOpen] = useState(false)
-  const [newFirstName, setNewFirstName] = useState(author.firstName)
-  const [newLastName, setNewLastName] = useState(author.lastName)
+  const [newFirstName, setNewFirstName] = useState('')
+  const [newLastName, setNewLastName] = useState('')
 
   const dispatch = useDispatch()
 
@@ -37,16 +33,15 @@ export default function EditAuthorForm({ author }: EditAuthorProps) {
     setOpen(false)
   }
 
-  const editAuthor = async (e: React.FormEvent) => {
+  const addAuthor = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const newAuthor: Author = {
+    const newAuthor: AuthorFormValues = {
       firstName: newFirstName,
       lastName: newLastName,
-      _id: author._id,
     }
 
-    dispatch(updateAuthorThunk(newAuthor))
+    dispatch(addAuthorThunk(newAuthor))
     setNewFirstName('')
     setNewLastName('')
   }
@@ -54,17 +49,17 @@ export default function EditAuthorForm({ author }: EditAuthorProps) {
   return (
     <div>
       <Button variant="contained" color="secondary" onClick={handleClickOpen}>
-        EDIT AUTHOR
+        ADD AUTHOR
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Edit Author</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add new book</DialogTitle>
         <DialogContent>
-          <DialogContentText>Edit Author</DialogContentText>
-          <form onSubmit={editAuthor}>
+          <DialogContentText>Add new Author to the Library</DialogContentText>
+          <form onSubmit={addAuthor}>
             <TextField
               id="outlined-full-width"
               label="First Name"
@@ -101,7 +96,7 @@ export default function EditAuthorForm({ author }: EditAuthorProps) {
                 color="primary"
                 variant="contained"
               >
-                Edit Author
+                Add Author
               </Button>
             </DialogActions>
           </form>

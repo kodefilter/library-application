@@ -8,8 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { AppState, BookFormValues } from '../../types'
-import { addBookThunk, fetchAuthorsThunk } from '../../redux/actions'
+
 import {
   InputLabel,
   Select,
@@ -21,6 +20,8 @@ import {
   createStyles,
   useTheme,
 } from '@material-ui/core'
+import { fetchAuthorsThunk, addBookThunk } from '../../../redux/actions'
+import { AppState, BookFormValues } from '../../../types'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

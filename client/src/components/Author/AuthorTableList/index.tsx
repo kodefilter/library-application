@@ -8,10 +8,13 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { useSelector, useDispatch } from 'react-redux'
-import { AppState } from '../../types'
-import { fetchAuthorsThunk, removeAuthorThunk } from '../../redux/actions'
 import { IconButton } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import {
+  fetchAuthorsThunk,
+  removeAuthorThunk,
+} from '../../../redux/actions/author'
+import { AppState } from '../../../types'
 import EditAuthorForm from '../EditAuthorForm'
 
 const useStyles = makeStyles({
