@@ -18,6 +18,7 @@ import {
   unborrowBookThunk,
 } from '../../../redux/actions'
 import { IconButton } from '@material-ui/core'
+import EditBookForm from '../EditBookForm'
 
 const useStyles = makeStyles({
   root: {
@@ -121,6 +122,7 @@ export default function BookCard({ book }: any) {
         >
           <DeleteIcon />
         </IconButton>
+        <EditBookForm key={book.title} book={book} />
         {book.isAvailable ? (
           <Button
             size="small"
