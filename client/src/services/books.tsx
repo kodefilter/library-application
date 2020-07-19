@@ -10,16 +10,12 @@ import {
 import { Dispatch } from 'redux'
 
 const baseUrl = 'http://localhost:3001/api/v1/books'
-
 ;(function() {
   const token = Cookies.get('access-cookie') as string
   if (token) {
     axios.defaults.headers.common['x-auth-token'] = token
   } else {
     axios.defaults.headers.common['x-auth-token'] = null
-    /*if setting null does not remove `Authorization` header then try     
-        delete axios.defaults.headers.common['Authorization'];
-      */
   }
 })()
 
