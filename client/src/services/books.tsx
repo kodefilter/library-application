@@ -6,11 +6,11 @@ import {
   addNotification,
   removeBook,
   getAllBooks,
+  updateBook,
 } from '../redux/actions'
 import { Dispatch } from 'redux'
 
 const baseUrl = 'http://localhost:3001/api/v1/books'
-
 ;(function() {
   const token = Cookies.get('access-cookie') as string
   if (token) {
@@ -70,8 +70,12 @@ const deleteThis = async (book: Book, dispatch: Dispatch) => {
 
 const updateThis = async (book: Book, dispatch: Dispatch) => {
   try {
-    await axios({ method: 'PUT', url: `${baseUrl}/${book._id}`, data: book })
-    //dispatch(updateBook(book)) need to implement this in redux
+    const response = await axios({
+      method: 'PUT',
+      url: `${baseUrl}/${book._id}`,
+      data: book,
+    })
+    dispatch(updateBook(response.data))
     dispatch(
       addNotification({
         errorMessage: '',
