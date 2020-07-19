@@ -1,7 +1,7 @@
 import React from 'react'
 import ApplicationBar from '../components/ApplicationBar'
-import BookGridList from '../components/BookGridList'
 import NotificationBar from '../components/NotificationBar'
+import BookGridList from '../components/Book/BookGridList'
 
 export default function Home() {
   return (
