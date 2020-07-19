@@ -10,6 +10,7 @@ import {
 import { Dispatch } from 'redux'
 
 const baseUrl = 'http://localhost:3001/api/v1/books'
+
 ;(function() {
   const token = Cookies.get('access-cookie') as string
   if (token) {
