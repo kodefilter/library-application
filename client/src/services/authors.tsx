@@ -11,13 +11,13 @@ import {
 } from '../redux/actions'
 const baseUrl = 'http://localhost:3001/api/v1/authors'
 
-let myHeaders = new Headers()
-myHeaders.append('x-auth-token', Cookies.get('access-cookie') as string)
+let header = new Headers()
+header.append('x-auth-token', Cookies.get('access-cookie') as string)
 
 const getAll = async (dispatch: Dispatch) => {
   try {
     const response = await axios.get(baseUrl, {
-      headers: myHeaders,
+      headers: header,
     })
     dispatch(getAllAuthors(response.data))
   } catch (error) {
