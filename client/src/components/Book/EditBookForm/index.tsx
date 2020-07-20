@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import EditIcon from '@material-ui/icons/Edit'
 
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -19,6 +20,7 @@ import {
   Theme,
   createStyles,
   useTheme,
+  IconButton,
 } from '@material-ui/core'
 import { fetchAuthorsThunk, updateBookThunk } from '../../../redux/actions'
 import { AppState, Book } from '../../../types'
@@ -124,9 +126,14 @@ export default function EditBookForm({ book }: EditBookFormProps) {
 
   return (
     <div>
-      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
-        UPDATE BOOK
-      </Button>
+      <IconButton
+        color="secondary"
+        aria-label="edit book"
+        component="span"
+        onClick={handleClickOpen}
+      >
+        <EditIcon />
+      </IconButton>
       <Dialog
         open={open}
         onClose={handleClose}
