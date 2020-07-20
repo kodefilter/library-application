@@ -6,10 +6,12 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import EditIcon from '@material-ui/icons/Edit'
 
 import { useDispatch } from 'react-redux'
 import { Author } from '../../../types'
 import { updateAuthorThunk } from '../../../redux/actions'
+import { IconButton } from '@material-ui/core'
 
 export type EditAuthorProps = {
   author: Author
@@ -53,9 +55,15 @@ export default function EditAuthorForm({ author }: EditAuthorProps) {
 
   return (
     <div>
-      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
-        EDIT AUTHOR
-      </Button>
+      <IconButton
+        color="secondary"
+        aria-label="edit author"
+        component="span"
+        onClick={handleClickOpen}
+      >
+        <EditIcon />
+      </IconButton>
+
       <Dialog
         open={open}
         onClose={handleClose}
