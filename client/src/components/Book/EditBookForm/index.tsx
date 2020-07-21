@@ -227,10 +227,4 @@ export default function EditBookForm({ book }: EditBookFormProps) {
       </Dialog>
     </div>
   )
-
-  interface AuthorType {
-    firstName: string
-    lastName: string
-    _id: string
-  }
 }
