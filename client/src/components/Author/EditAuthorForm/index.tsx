@@ -13,11 +13,11 @@ import { Author } from '../../../types'
 import { updateAuthorThunk } from '../../../redux/actions'
 import { IconButton } from '@material-ui/core'
 
-export type EditAuthorProps = {
+export type EditAuthorFormProps = {
   author: Author
 }
 
-export default function EditAuthorForm({ author }: EditAuthorProps) {
+export default function EditAuthorForm({ author }: EditAuthorFormProps) {
   const [open, setOpen] = useState(false)
   const [newFirstName, setNewFirstName] = useState(author.firstName)
   const [newLastName, setNewLastName] = useState(author.lastName)
