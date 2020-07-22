@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from '../../types'
 import { removeCurrentUser } from '../../redux/actions/user'
 import Cookies from 'js-cookie'
+import SearchField from '../SearchField'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,6 +63,7 @@ export default function ApplicationBar() {
           <Typography variant="h6" className={classes.title}>
             Integrify Library
           </Typography>
+          <SearchField />
           <Link to={`/authors`}>
             <Typography variant="h6" className={classes.title}>
               Authors
