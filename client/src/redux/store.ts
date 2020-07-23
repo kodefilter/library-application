@@ -14,25 +14,26 @@ const initState: AppState = {
     dialogOpen: {},
   },
   book: {
-    items: []
+    items: [],
+    filteredItems: [],
   },
   author: {
-    authors: []
+    authors: [],
   },
   user: {
     users: [],
-    currentUser : {
-      cart : [],
-      firstName : '',
-      lastName : '',
-    }
+    currentUser: {
+      cart: [],
+      firstName: '',
+      lastName: '',
+    },
   },
   notification: {
     message: {
       errorMessage: '',
       successMessage: '',
-    }
-  }
+    },
+  },
 }
 
 export default function makeStore(initialState = initState) {
