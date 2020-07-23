@@ -9,6 +9,7 @@ export const CREATE_BOOK = 'CREATE_BOOK'
 export const REMOVE_BOOK = 'REMOVE_BOOK'
 export const UPDATE_BOOK = 'UPDATE_BOOK'
 export const BORROW_UNBORROW_BOOK = 'BORROW_UNBORROW_BOOK'
+export const FILTER_ALL_BOOKS = 'FILTER_ALL_BOOKS'
 
 // ACTION TYOES FOR NOTIFICATION
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION'
@@ -133,6 +134,13 @@ export type borrowUnborrowBookAction = {
   }
 }
 
+export type filterAllBooksAction = {
+  type: typeof FILTER_ALL_BOOKS
+  payload: {
+    searchText: string
+  }
+}
+
 export type addCurrentUserAction = {
   type: typeof ADD_CURRENT_USER
   payload: {
@@ -162,6 +170,7 @@ export type BookActions =
   | updateBookAction
   | borrowUnborrowBookAction
   | removeBookAction
+  | filterAllBooksAction
 
 export type AuthorActions =
   | getAllAuthorsAction
@@ -201,6 +210,7 @@ export type ProductState = {
 
 export type BookState = {
   items: Book[]
+  filteredItems: Book[]
 }
 
 export type AuthorState = {
