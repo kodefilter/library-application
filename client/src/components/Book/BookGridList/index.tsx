@@ -36,7 +36,7 @@ export default function BookGridList() {
     dispatch(fetchBooksThunk())
   }, [dispatch])
 
-  const items = useSelector((state: AppState) => state.book.items)
+  const items = useSelector((state: AppState) => state.book.filteredItems)
 
   const classes = useStyles()
 
