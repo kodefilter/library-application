@@ -11,6 +11,7 @@ import {
   Book,
   BookFormValues,
   UPDATE_BOOK,
+  FILTER_ALL_BOOKS,
 } from '../../types'
 
 export const getAllBooks = (books: Book[]): BookActions => {
@@ -54,6 +55,15 @@ export const borrowUnborrowBook = (book: Book): BookActions => {
     type: BORROW_UNBORROW_BOOK,
     payload: {
       book,
+    },
+  }
+}
+
+export const filterAllBooks = (searchText: string): BookActions => {
+  return {
+    type: FILTER_ALL_BOOKS,
+    payload: {
+      searchText,
     },
   }
 }
