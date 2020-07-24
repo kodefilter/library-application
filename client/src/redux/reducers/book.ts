@@ -37,6 +37,9 @@ export default function book(
       items: state.items.map(oldBook =>
         oldBook._id === book._id ? book : oldBook
       ),
+      filteredItems: state.filteredItems.map(oldBook =>
+        oldBook._id === book._id ? book : oldBook
+      ),
     }
   }
 
