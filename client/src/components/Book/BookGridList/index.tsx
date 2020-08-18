@@ -4,11 +4,12 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import { useSelector, useDispatch } from 'react-redux'
+
 import BookForm from '../BookForm'
+import BookCard from '../BookCard'
 import { fetchBooksThunk } from '../../../redux/actions'
 import { AppState } from '../../../types'
-import AuthorForm from '../../Author/AuthorForm/intex'
-import BookCard from '../BookCard'
+import AuthorForm from '../../Author/AuthorForm'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
